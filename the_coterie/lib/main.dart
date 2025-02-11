@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_coterie/features/presentation/pages/event_page.dart';
+import 'package:the_coterie/features/presentation/pages/landing_page.dart';
+import 'package:the_coterie/features/presentation/pages/browse_page.dart';
 
 
 void main() {
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const EventPage(),
+      home: const BrowseSection(),
     );
   }
 }
