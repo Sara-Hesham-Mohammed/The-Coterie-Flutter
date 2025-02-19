@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:the_coterie/features/presentation/pages/event_page.dart';
-import 'package:the_coterie/features/presentation/pages/landing_page.dart';
-import 'package:the_coterie/features/presentation/pages/browse_page.dart';
+import 'package:the_coterie/presentation/pages/event_page.dart';
+import 'package:the_coterie/presentation/pages/landing_page.dart';
+import 'package:the_coterie/presentation/pages/browse_page.dart';
 
 
 void main() {
@@ -14,13 +14,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return SafeArea(
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlueAccent),
+          useMaterial3: true,
+        ),
+        home:  Scaffold(
+            appBar: AppBar(
+                title: const Text('AppBar Demo'),),
+            body: LandingPageView()),
       ),
-      home: const BrowseSection(),
     );
   }
 }

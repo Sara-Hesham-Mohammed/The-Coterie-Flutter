@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_coterie/features/presentation/widgets/event_card.dart';
+import 'package:the_coterie/presentation/widgets/event_card.dart';
 
 class BrowseSection extends StatelessWidget {
   const BrowseSection({super.key});
