@@ -2,7 +2,7 @@ import './Tag.dart';
 import './Group.dart';
 
 // eventState Enum
-enum EventState { Scheduled, Ongoing, Completed, Canceled }
+enum EventState { Upcoming, Ongoing, Ended, Canceled }
 
 // event Model
 class Event {

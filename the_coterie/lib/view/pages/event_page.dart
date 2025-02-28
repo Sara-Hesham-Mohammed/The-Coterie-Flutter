@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_models/EventViewModel.dart';
 
 class EventPage extends StatelessWidget {
   const EventPage({super.key});
@@ -14,13 +17,18 @@ class Event extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            EventTitle(title: "Events"),
-            ImageScroll(),
-          ],
+    return ChangeNotifierProvider(
+      create: (_) => EventViewModel(),
+      child: Scaffold(
+        body: Consumer<EventViewModel>(
+          builder: (_, viewModel, __) => Center(
+            child: Column(
+              children: [
+                EventTitle(title: "Events: ${viewModel.event}"),
+                ImageScroll(),
+              ],
+            ),
+          ),
         ),
       ),
     );
