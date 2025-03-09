@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../view_models/BottomNavProvider.dart';
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
-
-  @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar> {
-  int index = 0;
+class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new BottomNavigationBar(
-      currentIndex: index,
-      onTap: (int index) { setState((){ this.index = index; }); },
-      items: <BottomNavigationBarItem>[
-        new BottomNavigationBarItem(
-          icon: new Icon(Icons.home),
-          label: 'Home',
+    final bottomNavProvider = Provider.of<BottomNavProvider>(context);
+
+    return BottomNavigationBar(
+      currentIndex: bottomNavProvider.selectedIndex,
+      onTap: (index) => bottomNavProvider.changeIndex(index),
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
         ),
-        new BottomNavigationBarItem(
-          icon: new Icon(Icons.search),
-          label: 'Search',
+        BottomNavigationBarItem(
+          icon: Icon(Icons.search),
+          label: 'Browse',
         ),
       ],
     );

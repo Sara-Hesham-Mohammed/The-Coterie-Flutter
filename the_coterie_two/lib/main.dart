@@ -1,32 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:the_coterie/view/pages/event_page.dart';
-import 'package:the_coterie/view/pages/landing_page.dart';
+import 'package:provider/provider.dart';
 import 'package:the_coterie/view/pages/browse_page.dart';
+import 'package:the_coterie/view/pages/profile_page.dart';
+import 'package:the_coterie/view_models/BottomNavProvider.dart';
 import 'package:the_coterie/widgets/BottomNav.dart';
 
-
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => BottomNavProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
-  // This widget is the root of your application.
+  final List<Widget> _widgetOptions = [
+    ProfilePage(),
+    BrowseSection(),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final bottomNavProvider = Provider.of<BottomNavProvider>(context);
+
     return MaterialApp(
       title: 'The Coterie App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlueAccent),
         useMaterial3: true,
       ),
-      home:  Scaffold(
-          body: SafeArea(child: LandingPageView()),
+      home: Scaffold(
+        body: SafeArea(
+          child: Center(
+            child: _widgetOptions[bottomNavProvider.selectedIndex],
+          ),
+        ),
         bottomNavigationBar: BottomNavBar(),
       ),
-    
-    
     );
   }
 }
