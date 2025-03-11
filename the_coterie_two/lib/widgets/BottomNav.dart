@@ -7,17 +7,25 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final bottomNavProvider = Provider.of<BottomNavProvider>(context);
 
-    return BottomNavigationBar(
-      currentIndex: bottomNavProvider.selectedIndex,
-      onTap: (index) => bottomNavProvider.changeIndex(index),
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
+    return NavigationBar(
+      labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+      selectedIndex: bottomNavProvider.selectedIndex,
+      onDestinationSelected: (index) => bottomNavProvider.changeIndex(index),
+      destinations: const <Widget>[
+        NavigationDestination(
+          selectedIcon: Icon(Icons.bookmark),
+          icon: Icon(Icons.bookmark_border),
+          label: 'Saved',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Browse',
+        NavigationDestination(
+          selectedIcon: Icon(Icons.home),
+          icon: Icon(Icons.home_outlined),
+          label: 'Home',
+        ),
+        NavigationDestination(
+          selectedIcon: Icon(Icons.person_2),
+          icon: Icon(Icons.person_2_outlined),
+          label: 'Profile',
         ),
       ],
     );

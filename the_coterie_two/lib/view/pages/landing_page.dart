@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import './Onboarding_page.dart';
+import './onboarding_page.dart';
 
 class LandingPageView extends StatefulWidget {
   const LandingPageView({super.key});

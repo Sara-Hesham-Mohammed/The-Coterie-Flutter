@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:the_coterie/view/pages/onboarding_page.dart';
 import 'package:the_coterie/view/pages/browse_page.dart';
+import 'package:the_coterie/view/pages/event_page.dart';
 import 'package:the_coterie/view/pages/profile_page.dart';
+import 'package:the_coterie/view/pages/saved_events_page.dart';
 import 'package:the_coterie/view_models/BottomNavProvider.dart';
 import 'package:the_coterie/widgets/BottomNav.dart';
 
@@ -20,8 +23,9 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final List<Widget> _widgetOptions = [
-    ProfilePage(),
+    SavedEventsPage(),
     BrowseSection(),
+    ProfilePage(),
   ];
 
   @override
@@ -42,6 +46,7 @@ class MyApp extends StatelessWidget {
         ),
         bottomNavigationBar: BottomNavBar(),
       ),
+
     );
   }
 }
