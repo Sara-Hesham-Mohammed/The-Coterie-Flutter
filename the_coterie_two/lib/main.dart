@@ -6,15 +6,41 @@ import 'package:the_coterie/view/pages/event_page.dart';
 import 'package:the_coterie/view/pages/profile_page.dart';
 import 'package:the_coterie/view/pages/saved_events_page.dart';
 import 'package:the_coterie/view_models/BottomNavProvider.dart';
-import 'package:the_coterie/widgets/BottomNav.dart';
+import 'package:the_coterie/widgets/bottom_nav.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'firebase_sign_up.dart';
+
+// ...
+
+
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );//initializes the firebase APP itself (not the DB)
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => BottomNavProvider()),
       ],
-      child: MyApp(),
+      child: MaterialApp(
+        title: 'The Coterie App',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlueAccent),
+          useMaterial3: true,
+        ),
+        home: Scaffold(
+          body: SafeArea(
+            child: Center(
+              child:SignUp(),
+            ),
+          ),
+        ),
+
+      ),
     ),
   );
 }
