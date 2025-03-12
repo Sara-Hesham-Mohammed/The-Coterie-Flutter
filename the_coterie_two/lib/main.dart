@@ -7,8 +7,12 @@ import 'package:the_coterie/view/pages/profile_page.dart';
 import 'package:the_coterie/view/pages/saved_events_page.dart';
 import 'package:the_coterie/view_models/BottomNavProvider.dart';
 import 'package:the_coterie/widgets/BottomNav.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   runApp(
     MultiProvider(
       providers: [
@@ -19,14 +23,31 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final List<Widget> _widgetOptions = [
     SavedEventsPage(),
     BrowseSection(),
     ProfilePage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    initialization();
+  }
+
+  void initialization() async {
+    //init whatever is needed for the app here
+    FlutterNativeSplash.remove();
+  }
+
 
   @override
   Widget build(BuildContext context) {
