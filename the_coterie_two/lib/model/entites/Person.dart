@@ -5,7 +5,6 @@ class Person {
   final String address;
   final String phoneNumber;
   final String email;
-  final int nationalID;
 
   Person({
     required this.name,
@@ -14,7 +13,6 @@ class Person {
     required this.address,
     required this.phoneNumber,
     required this.email,
-    required this.nationalID,
   });
 
 }
