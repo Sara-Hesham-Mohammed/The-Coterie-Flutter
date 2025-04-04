@@ -54,6 +54,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/placeholder.png
+    - assets/logo-poster.png
+    - assets/logo-no-bg.png
+    - assets/welc-logo.png
 
   # fonts:
   #   - family: Schyler
@@ -68,12 +71,11 @@ flutter:
   #         weight: 700
   #
 flutter_native_splash:
-  image: assets/placeholder.png
-  color: "#4851fd"
+  image: assets/logo-poster.png
+  color: "#5629d7"
   android_12:
-    image: assets/placeholder.png
-    color: "#4851fd"
-    #icon_background_color: "#111111"
+    image: assets/logo-poster.png
+    color: "#5629d7"
   android: true
   ios: true
   web: false

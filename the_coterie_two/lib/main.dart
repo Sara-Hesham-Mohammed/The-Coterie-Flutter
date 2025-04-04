@@ -8,6 +8,7 @@ import 'package:the_coterie/view/pages/saved_events_page.dart';
 import 'package:the_coterie/view_models/BottomNavProvider.dart';
 import 'package:the_coterie/widgets/BottomNav.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:the_coterie/view/pages/LogIn.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -62,7 +63,8 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         body: SafeArea(
           child: Center(
-            child: _widgetOptions[bottomNavProvider.selectedIndex],
+            child: SignInPage(),
+            //child: _widgetOptions[bottomNavProvider.selectedIndex],
           ),
         ),
         bottomNavigationBar: BottomNavBar(),
