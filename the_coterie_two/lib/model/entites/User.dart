@@ -36,4 +36,32 @@ class User extends Person {
         phoneNumber: phoneNumber,
         email: email,
       );
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      userID: json['userID'],
+      tags: (json['tags'] as List<dynamic>?)
+        ?.map((tag) => Tag.fromJson(tag))
+        .toSet() ?? {},
+      name: json['name'],
+      dateOfBirth: DateTime.parse(json['dateOfBirth']),
+      gender: json['gender'],
+      address: json['address'],
+      phoneNumber: json['phoneNumber'],
+      email: json['email'],
+      friends: (json['friends'] as List<dynamic>?)
+          ?.map((f) => User.fromJson(f))
+          .toSet(),
+      eventsAttended: (json['eventsAttended'] as List<dynamic>?)
+          ?.map((e) => Event.fromJson(e))
+          .toSet(),
+      savedEvents: (json['savedEvents'] as List<dynamic>?)
+          ?.map((e) => Event.fromJson(e))
+          .toSet(),
+      groups: (json['groups'] as List<dynamic>?)
+          ?.map((g) => Group.fromJson(g))
+          .toSet(),
+    );
+  }
+
 }

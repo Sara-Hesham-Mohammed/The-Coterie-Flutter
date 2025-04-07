@@ -81,7 +81,7 @@ class __FormContentState extends State<_FormContent> {
             _gap(),
             PasswordField(),
             _gap(),
-            CheckBoxListItem(text: 'Remember mee',),
+            CheckBoxListItem(text: 'Remember me',),
             _gap(),
             FormButton(text: 'Log in', formKey: _formKey),
           ],

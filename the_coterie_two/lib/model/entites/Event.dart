@@ -38,4 +38,32 @@ class Event {
     required this.maxAttendees,
   });
 
+  factory Event.fromJson(Map<String, dynamic> json) {
+    return Event(
+      eventID: json['eventID'],
+      eventTitle: json['eventTitle'],
+      eventDescription: json['eventDescription'],
+      hostName: json['hostName'],
+      location: json['location'],
+      tags: (json['tags'] as List<dynamic>?)
+          ?.map((tag) => Tag.fromJson(tag))
+          .toSet() ?? {},
+      groupsAttending: (json['groupsAttending'] as List<dynamic>?)
+          ?.map((group) => Group.fromJson(group))
+          .toSet() ?? {},
+      startTime: DateTime.parse(json['startTime']),
+      endTime: DateTime.parse(json['endTime']),
+      status: EventState.values.firstWhere(
+            (e) => e.toString().split('.').last.toLowerCase() ==
+            json['status'].toString().toLowerCase(),
+        orElse: () => EventState.Upcoming, // fallback
+      ),
+      isPaid: json['isPaid'],
+      price: (json['price'] as num).toDouble(),
+      isRecurring: json['isRecurring'],
+      maxAttendees: json['maxAttendees'],
+    );
+  }
+
+
 }
