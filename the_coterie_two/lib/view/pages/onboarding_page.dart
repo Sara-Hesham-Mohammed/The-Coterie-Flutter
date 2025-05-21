@@ -33,9 +33,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   });
                 },
                 children: [
-                  onb_page1(),
-                  onb_page2(),
-                  onb_page3(),
+                  OnboardingPageX(text: "Feel the experience.",
+                      imgPath: './assets/welc-logo.png'),
+                  OnboardingPageX(text: "Find your vibe.",
+                      imgPath: './assets/party-nobg.png'),
+                  OnbPageFinal(),
                 ],
               ),
             ),

@@ -4,8 +4,8 @@ import 'package:the_coterie/widgets/form_text_field.dart';
 
 import '../../widgets/checkbox_list_item.dart';
 
-class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
+class LogInPage extends StatelessWidget {
+  const LogInPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

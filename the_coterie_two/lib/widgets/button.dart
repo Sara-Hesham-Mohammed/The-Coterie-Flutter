@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatefulWidget {
   final String text;
-  const PrimaryButton({super.key, required this.text});
+  final VoidCallback? onPressedFn;
+  const PrimaryButton({super.key, required this.text, this.onPressedFn});
 
   @override
   State<PrimaryButton> createState() => _PrimaryButtonState();
@@ -17,13 +18,14 @@ class _PrimaryButtonState extends State<PrimaryButton> {
       foregroundColor: Colors.white,
     );
     return ElevatedButton(
-        style: style, onPressed: () {}, child: Text(widget.text));
+        style: style, onPressed: widget.onPressedFn, child: Text(widget.text));
   }
 }
 
 class SecondaryButton extends StatefulWidget {
   final String text;
-  const SecondaryButton({super.key, required this.text});
+  final VoidCallback? onPressedFn;
+  const SecondaryButton({super.key, required this.text, this.onPressedFn});
 
   @override
   State<SecondaryButton> createState() => _SecondaryButtonState();
@@ -39,7 +41,7 @@ class _SecondaryButtonState extends State<SecondaryButton> {
     );
 
     return ElevatedButton(
-        style: style, onPressed: () {}, child: Text(widget.text));
+        style: style, onPressed: widget.onPressedFn, child: Text(widget.text));
   }
 }
 

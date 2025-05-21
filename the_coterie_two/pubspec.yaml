@@ -39,6 +39,9 @@ flutter:
     - assets/logo-poster.png
     - assets/logo-no-bg.png
     - assets/welc-logo.png
+    - assets/party-nobg.png
+    - assets/social.png
+    - assets/volunteer-nobg.png
 
   # fonts:
   #   - family: Schyler
