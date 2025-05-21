@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:the_coterie/widgets/button.dart';
 import 'package:the_coterie/widgets/form_text_field.dart';
 
-import '../../widgets/CheckBoxListItem.dart';
+import '../../widgets/checkbox_list_item.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);

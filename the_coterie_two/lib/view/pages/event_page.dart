@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:the_coterie/widgets/skeleton.dart';
 
 import '../../view_models/EventViewModel.dart';
 
-
 class EventPage extends StatelessWidget {
-  EventPage({super.key});
+  const EventPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Skeleton(bodyWidget: EventContent(), txt: "Event Page (pass event name)");
+  }
+}
+
+
+class EventContent extends StatelessWidget {
+  EventContent({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => EventViewModel(),
-      child: Scaffold(
-        body: Consumer<EventViewModel>(
+      child: Consumer<EventViewModel>(
           builder: (_, viewModel, __) => Center(
             child: Column(
               children: [
@@ -23,13 +32,7 @@ class EventPage extends StatelessWidget {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(Icons.arrow_back_ios_rounded),
-        ),
-      ),
+
     );
   }
 }

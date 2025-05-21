@@ -54,6 +54,7 @@ class Event {
       startTime: DateTime.parse(json['startTime']),
       endTime: DateTime.parse(json['endTime']),
       status: EventState.values.firstWhere(
+        //convert enum to string and compare with json
             (e) => e.toString().split('.').last.toLowerCase() ==
             json['status'].toString().toLowerCase(),
         orElse: () => EventState.Upcoming, // fallback
