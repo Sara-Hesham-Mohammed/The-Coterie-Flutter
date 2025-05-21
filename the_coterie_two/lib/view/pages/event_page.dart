@@ -9,7 +9,7 @@ class EventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Skeleton(bodyWidget: EventContent(), txt: "Event Page (pass event name)");
+    return Skeleton(showAppBars: true,bodyWidget: EventContent(), txt: "Event Page (pass event name)");
   }
 }
 
