@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class PersonalInfoTile extends StatelessWidget {
-  final title;
-  final subtitle;
+  final name;
+  final bio;
   final textColor;
-  PersonalInfoTile({this.title, this.subtitle, this.textColor = Colors.black});
+  PersonalInfoTile({this.name, this.bio, this.textColor = Colors.black});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -12,7 +12,7 @@ class PersonalInfoTile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
-          title,
+          name,
           style: TextStyle(
               fontSize: 20.0, fontWeight: FontWeight.w700, color: textColor),
         ),
@@ -20,7 +20,7 @@ class PersonalInfoTile extends StatelessWidget {
           height: 5.0,
         ),
         Text(
-          subtitle,
+          bio,
           style: TextStyle(
               fontSize: 15.0, fontWeight: FontWeight.normal, color: textColor),
         ),
