@@ -57,10 +57,10 @@ flutter:
   #
 
 flutter_native_splash:
-  image: assets/logo-poster.png
+  image: assets/logo-no-bg.png
   color: "#5629d7"
   android_12:
-    image: assets/logo-poster.png
+    image: assets/logo-no-bg.png
     color: "#5629d7"
   android: true
   ios: true
