@@ -20,7 +20,7 @@ dependencies:
   go_router: ^14.8.1
   table_calendar: ^3.2.0
   flutter_native_splash: ^2.4.4
-  firebase_auth: ^5.5.4
+  firebase_auth: ^5.5.4  # Requires SDK 35
   flutter_bloc: ^9.1.1
   google_fonts: ^6.2.1
 
@@ -42,6 +42,10 @@ flutter:
     - assets/party-nobg.png
     - assets/social.png
     - assets/volunteer-nobg.png
+    - assets/Splash.png
+    - assets/swirls.png
+    - assets/Icon.png
+    - assets/Icon-dark.png
 
   # fonts:
   #   - family: Schyler
@@ -57,11 +61,12 @@ flutter:
   #
 
 flutter_native_splash:
-  image: assets/logo-no-bg.png
-  color: "#5629d7"
-  android_12:
-    image: assets/logo-no-bg.png
-    color: "#5629d7"
+  background_image: "assets/Splash.png"
   android: true
   ios: true
   web: false
+  android_12:
+    image: "assets/Icon.png"
+    color: "#F1F5FF"
+    image_dark: "assets/Icon-dark.png"
+    color_dark: "#082563"

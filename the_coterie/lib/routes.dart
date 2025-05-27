@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_coterie/view/pages/browse_page.dart';
-import 'package:the_coterie/view/pages/event_page.dart';
+import 'package:the_coterie/view/pages/single_event_page.dart';
 import 'package:the_coterie/view/pages/log_in.dart';
 import 'package:the_coterie/view/pages/profile_page.dart';
 import 'package:the_coterie/view/pages/favorites_page.dart';

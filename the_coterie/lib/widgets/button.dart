@@ -13,8 +13,8 @@ class _PrimaryButtonState extends State<PrimaryButton> {
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 20),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      textStyle: Theme.of(context).textTheme.labelLarge,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       foregroundColor: Colors.white,
     );
     return ElevatedButton(
@@ -35,9 +35,9 @@ class _SecondaryButtonState extends State<SecondaryButton> {
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 20),
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      foregroundColor: Colors.white,
+      textStyle: Theme.of(context).textTheme.labelLarge,
+      backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+      foregroundColor: Theme.of(context).colorScheme.onTertiaryContainer,
     );
 
     return ElevatedButton(

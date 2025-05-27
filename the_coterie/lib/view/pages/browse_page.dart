@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_coterie/widgets/event_card.dart';
+import 'package:the_coterie/widgets/skeleton.dart';
+import '../../model/entities/Event.dart';
 import '../../widgets/search_bar.dart';
 
 class BrowseSection extends StatelessWidget {
@@ -7,20 +9,22 @@ class BrowseSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Browse Events"),
-      ),
-      body: SubSection(),
-    );
+    return Skeleton(bodyWidget: SubSection(), showAppBars: true, txt: "Browse Page");
   }
 }
 
 
 
-class SubSection extends StatelessWidget {
-  const SubSection({super.key});
+class SubSection extends StatefulWidget {
+
+  SubSection({super.key});
+
+  @override
+  State<SubSection> createState() => _SubSectionState();
+}
+
+class _SubSectionState extends State<SubSection> {
+  List<Event> events = [];
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +35,13 @@ class SubSection extends StatelessWidget {
         Container(
             height: 125,
             color: Colors.blueAccent,
-            child: ListView(
+            child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              children: [
-                EventCard(),
-                EventCard(),
-                EventCard(),
-                EventCard(),
-              ],
+              itemCount: events.length,
+              itemBuilder: (BuildContext context, int index) {
+                return EventCard(
+                );
+              },
             ),
           ),
       ],

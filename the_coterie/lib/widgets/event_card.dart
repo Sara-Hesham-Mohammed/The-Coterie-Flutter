@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:the_coterie/view/pages/event_page.dart';
+import 'package:the_coterie/view/pages/single_event_page.dart';
+
+import '../model/entities/Event.dart';
+import '../model/services/EventAggregationService.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({super.key});
+
+  EventCard({super.key});
 
   @override
   Widget build(BuildContext context) {

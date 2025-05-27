@@ -60,7 +60,6 @@ class EventTitle extends StatelessWidget {
   EventTitle({super.key, required this.title});
 
   final String title;
-  String _var = "Smth";
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +71,7 @@ class EventTitle extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineLarge,
           ),
           Text(
-            'Event $_var',
+            'Event',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           Text('Event Details'),
