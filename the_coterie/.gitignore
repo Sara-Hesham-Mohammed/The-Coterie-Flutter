@@ -31,6 +31,15 @@ migrate_working_dir/
 .pub/
 /build/
 
+# Packages
+*.dart_tool/
+*.pub/
+*.pana/
+*.build/
+.packages
+build/
+.fvm/
+
 # Symbolication related
 app.*.symbols
 
@@ -102,14 +111,7 @@ ehthumbs.db
 coverage/
 *.lcov
 
-# Packages
-*.dart_tool/
-*.pub/
-*.pana/
-*.build/
-.packages
-build/
-.fvm/
+
 
 # Web related
 *.js
