@@ -17,7 +17,7 @@ class Skeleton extends StatefulWidget {
 class _SkeletonState extends State<Skeleton> {
   int _selectedIndex = 0;
 
-  final List<String> _routes = ['/favorites', '/home', '/profile'];
+  final List<String> _routes = ['/favorites', '/', '/profile'];
 
   @override
   void initState() {

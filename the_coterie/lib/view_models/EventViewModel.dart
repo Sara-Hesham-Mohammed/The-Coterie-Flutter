@@ -7,7 +7,7 @@ class EventViewModel extends ChangeNotifier{
   Future<Event> event; //fix this to be the Event entity, like pass all the necessary args and shi
 
 
-  EventViewModel() : event = EventsRepo().getEvents();
+  EventViewModel() : event = EventsRepo().getAllEvents();
 
   void update() {
     //change whatever to the event here

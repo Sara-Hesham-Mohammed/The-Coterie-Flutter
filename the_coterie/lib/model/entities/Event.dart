@@ -3,12 +3,14 @@ import './Group.dart';
 
 // eventState Enum
 enum EventState { Upcoming, Ongoing, Ended, Canceled }
+enum EventType { Upcoming, Ongoing, Ended, Canceled }
 
 // event Model
 class Event {
   final int eventID;
   final String eventTitle;
   final String eventDescription;
+  final EventType type;
   final String hostName;
   final String location;
   final Set<Tag> tags;
@@ -25,6 +27,7 @@ class Event {
     required this.eventID,
     required this.eventTitle,
     required this.eventDescription,
+    required this.type,
     required this.hostName,
     required this.location,
     required this.tags,
@@ -43,6 +46,7 @@ class Event {
       eventID: json['eventID'],
       eventTitle: json['eventTitle'],
       eventDescription: json['eventDescription'],
+      type: json['type'],
       hostName: json['hostName'],
       location: json['location'],
       tags: (json['tags'] as List<dynamic>?)
