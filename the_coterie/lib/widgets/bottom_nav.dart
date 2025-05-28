@@ -3,9 +3,12 @@ import 'package:provider/provider.dart';
 import '../view_models/BottomNavProvider.dart';
 
 class BottomNavBar extends StatelessWidget {
+  final BottomNavProvider bottomNavProvider;
+  const BottomNavBar({super.key, required this.bottomNavProvider});
+
   @override
   Widget build(BuildContext context) {
-    final bottomNavProvider = Provider.of<BottomNavProvider>(context);
+
 
     return NavigationBar(
       labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,

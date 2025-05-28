@@ -6,6 +6,7 @@ import 'package:the_coterie/view/pages/profile_page.dart';
 import 'package:the_coterie/view/pages/favorites_page.dart';
 import 'package:the_coterie/view/pages/sign_up.dart';
 import './view/pages/onboarding_page.dart';
+import 'component_tester.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -14,7 +15,8 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         //only if not logged in
-        return MaterialPageRoute(builder: (_) => OnboardingPage());
+        //return MaterialPageRoute(builder: (_) => OnboardingPage());
+        return MaterialPageRoute(builder: (_) => ComponentPage());
       case '/login':
         //only if not logged in
         return MaterialPageRoute(builder: (_) => LogInPage());
