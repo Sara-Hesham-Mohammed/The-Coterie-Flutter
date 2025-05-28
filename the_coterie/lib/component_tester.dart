@@ -7,7 +7,7 @@ class ComponentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Skeleton(showAppBars: true,bodyWidget: ComponentContent(), txt: "Event Page (pass event name)");
+    return ComponentContent();
   }
 }
 

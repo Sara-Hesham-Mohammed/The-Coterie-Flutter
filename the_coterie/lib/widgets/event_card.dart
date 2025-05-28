@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_coterie/view/pages/single_event_page.dart';
-
-import '../model/entities/Event.dart';
-import '../model/services/EventAggregationService.dart';
+import '../view/single_event_page.dart';
 
 class EventCard extends StatelessWidget {
 

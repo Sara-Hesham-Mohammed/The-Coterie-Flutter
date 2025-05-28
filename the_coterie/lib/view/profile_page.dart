@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_coterie/widgets/skeleton.dart';
 
-import '../../widgets/personal_info_tile.dart';
+import '../widgets/personal_info_tile.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key,});
@@ -9,9 +9,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    return Skeleton(
-      
-      bodyWidget: FittedBox(
+    return FittedBox(
         alignment: Alignment.center,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -58,8 +56,6 @@ class ProfilePage extends StatelessWidget {
             ],
           ),
         ),
-      ), showAppBars: true,
-      txt: "Profile",
     );
   }
 }

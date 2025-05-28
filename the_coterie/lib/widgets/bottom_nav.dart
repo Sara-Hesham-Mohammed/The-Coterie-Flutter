@@ -45,10 +45,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
       selectedIndex: _selectedIndex,
       indicatorColor: Theme.of(context).colorScheme.primary,
       onDestinationSelected: (index) {
-        if (index != _selectedIndex) {
           changeIndex(index);
           print("INDEX: $index");
-    }
       },
       destinations: const <Widget>[
         NavigationDestination(

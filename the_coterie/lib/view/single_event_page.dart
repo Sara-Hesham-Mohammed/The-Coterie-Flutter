@@ -1,38 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:the_coterie/widgets/skeleton.dart';
-
 import '../../view_models/EventViewModel.dart';
 
 class EventPage extends StatelessWidget {
-  const EventPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Skeleton(showAppBars: true,bodyWidget: EventContent(), txt: "Event Page (pass event name)");
-  }
-}
-
-
-class EventContent extends StatelessWidget {
-  EventContent({super.key});
+  EventPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => EventViewModel(),
       child: Consumer<EventViewModel>(
-          builder: (_, viewModel, __) => Center(
-            child: Column(
-              children: [
-                Hero(tag: 'placeholder', child:ImageScroll() ),
-                EventTitle(title: "Events: ${viewModel.event}"),
-
-              ],
-            ),
+        builder: (_, viewModel, __) => Center(
+          child: Column(
+            children: [
+              Hero(tag: 'placeholder', child: ImageScroll()),
+              EventTitle(title: "Events: ${viewModel.event}"),
+            ],
           ),
         ),
-
+      ),
     );
   }
 }

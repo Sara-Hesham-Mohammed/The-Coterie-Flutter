@@ -1,40 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:the_coterie/view/pages/browse_page.dart';
-import 'package:the_coterie/view/pages/home_page.dart';
-import 'package:the_coterie/view/pages/single_event_page.dart';
-import 'package:the_coterie/view/pages/log_in.dart';
-import 'package:the_coterie/view/pages/profile_page.dart';
-import 'package:the_coterie/view/pages/favorites_page.dart';
-import 'package:the_coterie/view/pages/sign_up.dart';
-import './view/pages/onboarding_page.dart';
+import 'package:the_coterie/view/browse_page.dart';
+import 'package:the_coterie/widgets/skeleton.dart';
+import '../view/home_page.dart';
+import '../view/single_event_page.dart';
+import '../view/log_in.dart';
+import '../view/profile_page.dart';
+import 'package:the_coterie/view/favorites_page.dart';
+import 'package:the_coterie/view/sign_up.dart';
+import 'view/onboarding_page.dart';
 import 'component_tester.dart';
 
 class RouteGenerator {
+
+  static MaterialPageRoute buildRoute(
+      String currentRouteName, Widget childWidget) {
+    return MaterialPageRoute(
+      builder: (context) => Skeleton(
+        currentRoute: currentRouteName,
+        bodyWidget: childWidget,
+      ),
+    );
+  }
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
     switch (settings.name) {
       case '/':
-        //only if not logged in
-        //return MaterialPageRoute(builder: (_) => OnboardingPage());
-        return MaterialPageRoute(builder: (_) => ComponentPage());
+        return buildRoute('/', ComponentPage());
       case '/login':
-        //only if not logged in
-        return MaterialPageRoute(builder: (_) => LogInPage());
+        return buildRoute('/login', LogInPage());
       case '/signup':
-        //only if not logged in
-        return MaterialPageRoute(builder: (_) => SignUp());
+        return buildRoute('/signup', SignUp());
       case '/home':
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return buildRoute('/home', HomePage());
       case '/browse':
-        return MaterialPageRoute(builder: (_) => BrowseSection());
+        return buildRoute('/browse', BrowseSection());
       case '/event':
-        // if args are needed use em here
-        return MaterialPageRoute(builder: (_) => EventPage());
+        return buildRoute('/event', EventPage());
       case '/profile':
-        return MaterialPageRoute(builder: (_) => ProfilePage());
+        return buildRoute('/profile', ProfilePage());
       case '/favorites':
-        return MaterialPageRoute(builder: (_) => FavoriteEventsPage());
+        return buildRoute('/favorites', FavoriteEventsPage());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
@@ -47,7 +54,6 @@ class RouteGenerator {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(_, '/onboarding');
-                      // Replace '/onboarding' with your actual route name
                     },
                     child: Text('Go to Onboarding'),
                   ),
