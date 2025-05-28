@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_coterie/view/pages/browse_page.dart';
+import 'package:the_coterie/view/pages/home_page.dart';
 import 'package:the_coterie/view/pages/single_event_page.dart';
 import 'package:the_coterie/view/pages/log_in.dart';
 import 'package:the_coterie/view/pages/profile_page.dart';
@@ -23,6 +24,8 @@ class RouteGenerator {
       case '/signup':
         //only if not logged in
         return MaterialPageRoute(builder: (_) => SignUp());
+      case '/home':
+        return MaterialPageRoute(builder: (_) => HomePage());
       case '/browse':
         return MaterialPageRoute(builder: (_) => BrowseSection());
       case '/event':

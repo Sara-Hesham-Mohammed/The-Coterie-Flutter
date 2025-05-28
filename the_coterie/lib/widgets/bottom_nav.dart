@@ -1,19 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../view_models/BottomNavProvider.dart';
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({super.key});
 
-class BottomNavBar extends StatelessWidget {
-  final BottomNavProvider bottomNavProvider;
-  const BottomNavBar({super.key, required this.bottomNavProvider});
+  @override
+  State<BottomNavBar> createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  int _selectedIndex = 0;
+
+  void changeIndex(int index) {
+    setState(() {
+      _selectedIndex = index;
+      switch (index) {
+        case 0:
+          Navigator.pushReplacementNamed(context, '/favorites');
+          print("Case 0: $_selectedIndex");
+          break;
+        case 1:
+          Navigator.pushReplacementNamed(context, '/home');
+          print("Case 1: $_selectedIndex");
+          break;
+        case 2:
+          Navigator.pushReplacementNamed(context, '/profile');
+          print("Case 2: $_selectedIndex");
+          break;
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
-
-
     return NavigationBar(
       labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-      selectedIndex: bottomNavProvider.selectedIndex,
-      onDestinationSelected: (index) => bottomNavProvider.changeIndex(index),
+      selectedIndex: _selectedIndex,
+      onDestinationSelected: (index) {
+        if (index != _selectedIndex) {
+          changeIndex(index);
+          print("INDEX: $index");
+    }
+      },
       destinations: const <Widget>[
         NavigationDestination(
           selectedIcon: Icon(Icons.bookmark),
