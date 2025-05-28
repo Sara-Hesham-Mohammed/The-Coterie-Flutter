@@ -6,6 +6,12 @@ class FavoriteEventsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Skeleton(bodyWidget: Placeholder(), showAppBars: true, txt: "Favorites",);
+    return Skeleton(bodyWidget: Column(
+      children: [
+        Text("FAVOURITES"),
+        const SizedBox(height: 20),
+        Placeholder(),
+      ],
+    ), showAppBars: true, txt: "Favorites",);
   }
 }

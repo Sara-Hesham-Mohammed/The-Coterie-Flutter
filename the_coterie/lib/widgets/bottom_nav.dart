@@ -7,7 +7,15 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    print("BottomNavBar initState called");
+    _selectedIndex = 1; // Default to Home
+    print("_selectedIndex: $_selectedIndex");
+  }
 
   void changeIndex(int index) {
     setState(() {
@@ -35,6 +43,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return NavigationBar(
       labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
       selectedIndex: _selectedIndex,
+      indicatorColor: Theme.of(context).colorScheme.primary,
       onDestinationSelected: (index) {
         if (index != _selectedIndex) {
           changeIndex(index);
