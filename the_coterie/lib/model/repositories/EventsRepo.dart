@@ -1,9 +1,18 @@
 import 'package:the_coterie/model/entities/Event.dart';
-import '../services/EventAggregationService.dart';
+import '../services/EventsService.dart';
 
 //used if caching is needed in the future
 
-class EventsRepo{
-  final EventAggregationService service = EventAggregationService();
-  Future<Event> getAllEvents() => service.getAllEvents();
+class EventsRepo {
+  final EventsService service = EventsService();
+
+  Future<List<Event>> getAllEvents() async {
+    try {
+      return await service.getAllEvents();
+    } catch (e) {
+      print('Error fetching events: $e');
+      return [];
+    }
+  }
+
 }

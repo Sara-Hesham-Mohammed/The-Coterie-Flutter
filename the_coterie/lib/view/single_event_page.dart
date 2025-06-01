@@ -10,14 +10,19 @@ class EventPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => EventViewModel(),
       child: Consumer<EventViewModel>(
-        builder: (_, viewModel, __) => Center(
-          child: Column(
-            children: [
-              Hero(tag: 'placeholder', child: ImageScroll()),
-              EventTitle(title: "Events: ${viewModel.event}"),
-            ],
-          ),
-        ),
+        builder: (_, viewModel, __) {
+          if (viewModel.isLoading) {
+            return const CircularProgressIndicator();
+          } else if (viewModel.error != null) {
+            return Text('Error: ${viewModel.error}');
+          } else if (!viewModel.hasEvents) {
+            return const Text('No events found');
+          }
+
+          return EventTitle(
+            title: "Events: ${viewModel.events[0].name}",
+          );
+        },
       ),
     );
   }
