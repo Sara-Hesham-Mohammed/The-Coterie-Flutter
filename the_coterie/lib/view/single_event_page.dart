@@ -7,24 +7,7 @@ class EventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => EventViewModel(),
-      child: Consumer<EventViewModel>(
-        builder: (_, viewModel, __) {
-          if (viewModel.isLoading) {
-            return const CircularProgressIndicator();
-          } else if (viewModel.error != null) {
-            return Text('Error: ${viewModel.error}');
-          } else if (!viewModel.hasEvents) {
-            return const Text('No events found');
-          }
-
-          return EventTitle(
-            title: "Events: ${viewModel.events[0].name}",
-          );
-        },
-      ),
-    );
+    return Placeholder();
   }
 }
 
