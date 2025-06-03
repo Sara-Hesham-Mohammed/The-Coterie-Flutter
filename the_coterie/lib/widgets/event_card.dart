@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import '../model/entities/Event.dart';
 import '../view/single_event_page.dart';
 
 class EventCard extends StatelessWidget {
 
-  EventCard({super.key});
+  final Event event;
+  EventCard({super.key, required this.event});
+
 
   @override
   Widget build(BuildContext context) {
-    const eventNameStyle = TextStyle(fontSize: 12);
+    TextTheme textStyle = Theme.of(context).textTheme;
 
     return GestureDetector(
       onTap: () {
@@ -38,11 +41,11 @@ class EventCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min, // Prevent unnecessary space
                   children: [
-                    const Text("Event Name", style: eventNameStyle),
-                    const Text("Mini Description", style: eventNameStyle),
-                    const Text("Location", style: eventNameStyle),
-                    const Text("Date", style: eventNameStyle),
-                    const Text("Attendees: X", style: eventNameStyle),
+                     Text(event.name, style: textStyle.headlineMedium),
+                     Text(event.description, style: textStyle.bodyMedium),
+                     Text(event.location, style: textStyle.labelSmall),
+                     Text("Starts: ${event.startDate}", style: textStyle.labelSmall),
+                     Text("Attendees: ${event.maxAttendees}", style: textStyle.labelSmall),
                   ],
                 ),
               ],

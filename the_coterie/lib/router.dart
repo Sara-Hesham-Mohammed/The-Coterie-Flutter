@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_coterie/view/browse_page.dart';
+import 'package:the_coterie/view_models/EventViewModel.dart';
 import 'package:the_coterie/widgets/skeleton.dart';
 import '../view/home_page.dart';
 import '../view/single_event_page.dart';
@@ -11,7 +12,6 @@ import 'view/onboarding_page.dart';
 import 'component_tester.dart';
 
 class RouteGenerator {
-
   static MaterialPageRoute buildRoute(
       String currentRouteName, Widget childWidget) {
     return MaterialPageRoute(
@@ -35,7 +35,16 @@ class RouteGenerator {
       case '/home':
         return buildRoute('/home', HomePage());
       case '/browse':
-        return buildRoute('/browse', BrowseSection());
+        if (args is EventViewModel) {
+          return buildRoute(
+              '/browse',
+              BrowseSection(
+                viewModel: args,
+              ));
+        } else {
+          return _errorRoute();
+        }
+
       case '/event':
         return buildRoute('/event', EventPage());
       case '/profile':
