@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 
-class StlessField extends StatelessWidget {
+class InputField extends StatefulWidget {
   final String type;
   final Icon typeIcon;
-  const StlessField({super.key, required this.type, required this.typeIcon});
+  final TextEditingController controller;
+  const InputField({super.key, required this.type, required this.typeIcon, required this.controller,});
+
+  @override
+  State<InputField> createState() => _InputFieldState();
+}
+
+class _InputFieldState extends State<InputField> {
+
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       validator: (value) {
         // add email validation
         if (value == null || value.isEmpty) {
@@ -18,15 +27,15 @@ class StlessField extends StatelessWidget {
                 r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
             .hasMatch(value);
         if (!valid) {
-          return 'Please enter a valid $type';
+          return 'Please enter a valid ${widget.type}';
         }
 
         return null;
       },
       decoration: InputDecoration(
-        labelText: type,
-        hintText: 'Enter your $type',
-        prefixIcon: typeIcon,
+        labelText: widget.type,
+        hintText: 'Enter your ${widget.type}',
+        prefixIcon: widget.typeIcon,
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0)),
         ),
@@ -36,7 +45,9 @@ class StlessField extends StatelessWidget {
 }
 
 class PasswordField extends StatefulWidget {
-  const PasswordField({super.key});
+
+  final TextEditingController controller;
+  const PasswordField({super.key, required this.controller});
 
   @override
   State<PasswordField> createState() => _PasswordFieldState();
@@ -45,9 +56,11 @@ class PasswordField extends StatefulWidget {
 class _PasswordFieldState extends State<PasswordField> {
   bool _isPasswordVisible = false;
 
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter some text';

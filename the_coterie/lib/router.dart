@@ -9,7 +9,6 @@ import '../view/profile_page.dart';
 import 'package:the_coterie/view/favorites_page.dart';
 import 'package:the_coterie/view/sign_up.dart';
 import 'view/onboarding_page.dart';
-import 'component_tester.dart';
 
 class RouteGenerator {
   static MaterialPageRoute buildRoute(
@@ -27,7 +26,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return buildRoute('/', ComponentPage());
+        return buildRoute('/', OnboardingPage());
       case '/login':
         return buildRoute('/login', LogInPage());
       case '/signup':

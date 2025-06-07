@@ -64,7 +64,8 @@ class _FormContent extends StatefulWidget {
 }
 
 class __FormContentState extends State<_FormContent> {
-
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -77,9 +78,11 @@ class __FormContentState extends State<_FormContent> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-           StlessField(type: 'Email', typeIcon: Icon(Icons.email_outlined)),
+           InputField(type: 'Email', typeIcon: Icon(Icons.email_outlined), controller: emailController,),
             _gap(),
-            PasswordField(),
+            PasswordField(
+              controller: passwordController,
+            ),
             _gap(),
             CheckBoxListItem(text: 'Remember me',),
             _gap(),
