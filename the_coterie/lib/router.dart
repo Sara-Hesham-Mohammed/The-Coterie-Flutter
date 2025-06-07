@@ -12,12 +12,14 @@ import 'view/onboarding_page.dart';
 
 class RouteGenerator {
   static MaterialPageRoute buildRoute(
-      String currentRouteName, Widget childWidget) {
-    return MaterialPageRoute(
+      String currentRouteName, Widget childWidget, bool addBottomNav) {
+    return addBottomNav? MaterialPageRoute(
       builder: (context) => Skeleton(
         currentRoute: currentRouteName,
         bodyWidget: childWidget,
       ),
+    ): MaterialPageRoute(
+      builder: (context) => childWidget,
     );
   }
 
@@ -26,30 +28,30 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return buildRoute('/', OnboardingPage());
+        return buildRoute('/', OnboardingPage(), false);
       case '/login':
-        return buildRoute('/login', LogInPage());
+        return buildRoute('/login', LogInPage(), false);
       case '/signup':
-        return buildRoute('/signup', SignUp());
+        return buildRoute('/signup', SignUp(), false);
       case '/home':
-        return buildRoute('/home', HomePage());
+        return buildRoute('/home', HomePage(), true);
       case '/browse':
         if (args is EventViewModel) {
           return buildRoute(
               '/browse',
               BrowseSection(
                 viewModel: args,
-              ));
+              ), true);
         } else {
           return _errorRoute();
         }
 
       case '/event':
-        return buildRoute('/event', EventPage());
+        return buildRoute('/event', EventPage(), true);
       case '/profile':
-        return buildRoute('/profile', ProfilePage());
+        return buildRoute('/profile', ProfilePage(), true);
       case '/favorites':
-        return buildRoute('/favorites', FavoriteEventsPage());
+        return buildRoute('/favorites', FavoriteEventsPage(), true);
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
