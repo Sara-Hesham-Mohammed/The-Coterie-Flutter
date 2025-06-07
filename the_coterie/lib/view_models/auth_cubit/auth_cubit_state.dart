@@ -1,4 +1,4 @@
-// lib/cubit/auth_state.dart
+// lib/auth_cubit/auth_state.dart
 abstract class AuthState {}
 
 class AuthInitial extends AuthState {}

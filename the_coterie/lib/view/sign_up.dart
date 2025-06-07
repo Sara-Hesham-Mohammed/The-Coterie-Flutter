@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_coterie/widgets/form_text_field.dart';
-
-import '../cubit/auth_cubit_cubit.dart';
-import '../cubit/auth_cubit_state.dart';
+import '../view_models/auth_cubit/auth_cubit_cubit.dart';
+import '../view_models/auth_cubit/auth_cubit_state.dart';
 import '../widgets/button.dart';
 
 class SignUp extends StatelessWidget {
