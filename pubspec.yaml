@@ -1,0 +1,73 @@
+name: the_coterie
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.2
+  bloc: ^9.0.0
+  http: ^1.3.0
+  location: ^7.0.1
+  go_router: ^14.8.1
+  table_calendar: ^3.2.0
+  flutter_native_splash: ^2.4.4
+  firebase_auth: ^4.16.0 # Requires SDK 35
+  flutter_bloc: ^9.1.1
+  google_fonts: ^6.2.1
+  flutter_secure_storage: ^9.2.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/placeholder.png
+    - assets/logo-poster.png
+    - assets/logo-no-bg.png
+    - assets/welc-logo.png
+    - assets/party-nobg.png
+    - assets/social.png
+    - assets/volunteer-nobg.png
+    - assets/Splash.png
+    - assets/swirls.png
+    - assets/Icon.png
+    - assets/Icon-dark.png
+
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+
+flutter_native_splash:
+  background_image: "assets/Splash.png"
+  android: true
+  ios: true
+  web: false
+  android_12:
+    image: "assets/Icon.png"
+    color: "#F1F5FF"
+    image_dark: "assets/Icon-dark.png"
+    color_dark: "#082563"
