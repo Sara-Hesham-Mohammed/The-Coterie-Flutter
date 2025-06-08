@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_coterie/utils/skeleton.dart';
-
-import '../widgets/personal_info_tile.dart';
+import 'package:the_coterie/view/widgets/molecules/personal_info_tile.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key,});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_coterie/widgets/onboarding_widgets.dart';
+import 'package:the_coterie/view/widgets/onboarding_widgets.dart';
 
 class OnboardingPage extends StatefulWidget {
   OnboardingPage({super.key});

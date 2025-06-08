@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../model/entities/Event.dart';
-import '../view/single_event_page.dart';
+
+import '../../model/entities/Event.dart';
+import '../screens/single_event_page.dart';
 
 class EventCard extends StatelessWidget {
 

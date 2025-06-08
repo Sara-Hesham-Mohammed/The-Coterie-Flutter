@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:the_coterie/view/widgets/atoms/chips.dart';
+import 'package:the_coterie/view/widgets/molecules/chip_molecule.dart';
 
-import '../widgets/chips.dart';
-import '../widgets/molecules/chip_molecule.dart';
 
 class LandingPageView extends StatefulWidget {
   const LandingPageView({super.key});

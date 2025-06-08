@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_coterie/widgets/form_text_field.dart';
-import '../utils/msg_snackbar.dart';
-import '../view_models/auth_cubit/auth_cubit_cubit.dart';
-import '../widgets/atoms/consumer_button.dart';
+import 'package:the_coterie/view/widgets/atoms/consumer_button.dart';
+import 'package:the_coterie/view/widgets/atoms/form_text_field.dart';
+import '../../utils/msg_snackbar.dart';
+import '../../view_models/auth_cubit/auth_cubit_cubit.dart';
+
+
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
 

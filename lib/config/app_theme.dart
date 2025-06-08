@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:the_coterie/core/text_theme.dart';
+import 'package:the_coterie/config/text_theme.dart';
 
 class AppColors {
   // Primary Purple (Main brand color)

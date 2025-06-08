@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_coterie/widgets/atoms/primary_button.dart';
+import 'package:the_coterie/view/widgets/atoms/primary_button.dart';
 
-import '../../view_models/auth_cubit/auth_cubit_cubit.dart';
-import '../../view_models/auth_cubit/auth_cubit_state.dart';
+import '../../../view_models/auth_cubit/auth_cubit_cubit.dart';
+import '../../../view_models/auth_cubit/auth_cubit_state.dart';
 
 class BlockAuthConsumer extends StatelessWidget {
   final AuthCubit cubit;

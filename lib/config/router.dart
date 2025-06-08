@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:the_coterie/view/browse_page.dart';
-import 'package:the_coterie/view/landing_page.dart';
+import 'package:the_coterie/view/screens/browse_page.dart';
+import 'package:the_coterie/view/screens/landing_page.dart';
 import 'package:the_coterie/view_models/EventViewModel.dart';
-import 'package:the_coterie/utils/skeleton.dart';
-import '../view/home_page.dart';
-import '../view/single_event_page.dart';
-import '../view/log_in.dart';
-import '../view/profile_page.dart';
-import 'package:the_coterie/view/favorites_page.dart';
-import 'package:the_coterie/view/sign_up.dart';
-import 'view/onboarding_page.dart';
+import '../view/screens/home_page.dart';
+import '../view/screens/profile_page.dart';
+import '../view/screens/single_event_page.dart';
+import '../view/screens/log_in.dart';
+import 'package:the_coterie/view/screens/favorites_page.dart';
+import 'package:the_coterie/view/screens/sign_up.dart';
+import '../utils/skeleton.dart';
+import '../view/screens/onboarding_page.dart';
 
 class RouteGenerator {
   static MaterialPageRoute buildRoute(

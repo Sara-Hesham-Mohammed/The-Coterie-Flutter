@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:the_coterie/view/widgets/event_card.dart';
+import 'package:the_coterie/view/widgets/search_bar.dart';
 import 'package:the_coterie/view_models/EventViewModel.dart';
-import 'package:the_coterie/widgets/event_card.dart';
-import '../widgets/search_bar.dart';
 
 class BrowseSection extends StatelessWidget {
   final EventViewModel viewModel;
