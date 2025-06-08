@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_coterie/widgets/form_text_field.dart';
+import '../utils/msg_snackbar.dart';
 import '../view_models/auth_cubit/auth_cubit_cubit.dart';
-import '../view_models/auth_cubit/auth_cubit_state.dart';
-import '../widgets/button.dart';
-
+import '../widgets/atoms/consumer_button.dart';
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
 
@@ -35,13 +34,6 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-
-  void showSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final emailController = TextEditingController();
@@ -63,79 +55,19 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: 20),
           BlockAuthConsumer(
             cubit: cubit,
-            handleSignUp:(){
+            handlerFunction:(){
               if (_formKey.currentState!.validate()) {
                 // Form is valid - can access the values
-                showSnackBar('Form is valid! Processing...');
-
-                print('handleSignUp called');
-
+                SnackBarUtils.showSnackBar(context,'Form is valid! Processing...');
                 cubit.signUp(emailController.text, passwordController.text);
-
-                // submit the form data to neo4j
-                print('Form submitted successfully!');
-                showSnackBar('Form submitted successfully!');
+                SnackBarUtils.showSnackBar(context,'Form submitted successfully!');
               } else {
-                // Form has validation errors
-                showSnackBar('Error submitting form! Please try again.');
+                SnackBarUtils.showSnackBar(context,'Error submitting form! Please try again.');
               }
-            },
+            }, btnText: 'Sign Up',
           ),
         ],
       ),
-    );
-  }
-}
-
-class BlockAuthConsumer extends StatelessWidget {
-  final AuthCubit cubit;
-  final VoidCallback handleSignUp;
-  const BlockAuthConsumer({
-    super.key,
-    required this.cubit,
-    required this.handleSignUp,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(
-      bloc: cubit,
-
-      // Listen only to success and error states
-      listenWhen: (previous, current) =>
-          current is Authenticated || current is AuthError,
-
-      listener: (context, state) {
-        switch (state) {
-          case Authenticated():
-            Navigator.of(context).pushNamed('/home');
-            break;
-          case AuthError():
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
-            break;
-        }
-      },
-
-      // Rebuild for loading, error, and success states
-      buildWhen: (previous, current) =>
-          current is AuthLoading ||
-          current is AuthError ||
-          current is Authenticated,
-
-      builder: (context, state) {
-        return switch (state) {
-          AuthLoading() => const PrimaryButton(
-              text: 'loading...',
-              // Could add loading indicator here
-            ),
-          _ => PrimaryButton(
-              text: 'Sign Up',
-              onPressedFn: handleSignUp,
-            ),
-        };
-      },
     );
   }
 }

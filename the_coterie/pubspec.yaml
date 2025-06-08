@@ -23,6 +23,7 @@ dependencies:
   firebase_auth: ^5.5.4  # Requires SDK 35
   flutter_bloc: ^9.1.1
   google_fonts: ^6.2.1
+  flutter_secure_storage: ^9.2.4
 
 dev_dependencies:
   flutter_test:

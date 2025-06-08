@@ -14,9 +14,13 @@ class _InterestChipState extends State<InterestChip> {
 
   @override
   Widget build(BuildContext context) {
-    return   ActionChip(
-          avatar: Icon(favorite ? Icons.favorite : Icons.favorite_border),
-          label: Text(widget.label),
+    return ActionChip(
+          avatar: Icon(favorite ? Icons.check : Icons.check,
+            color: favorite ? Colors.white : Colors.grey,
+          ),
+          label: Text(widget.label,
+            style: Theme.of(context).textTheme.labelLarge,),
+          color: WidgetStateProperty.all(Theme.of(context).colorScheme.primaryContainer),
           onPressed: () {
             setState(() {
               favorite = !favorite;

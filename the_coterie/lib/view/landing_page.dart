@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import './onboarding_page.dart';
+
+import '../widgets/chips.dart';
+import '../widgets/molecules/chip_molecule.dart';
 
 class LandingPageView extends StatefulWidget {
   const LandingPageView({super.key});
@@ -18,7 +20,7 @@ class _LandingPageViewState extends State<LandingPageView> with TickerProviderSt
   void initState() {
     super.initState();
     _pageViewController = PageController();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -32,25 +34,40 @@ class _LandingPageViewState extends State<LandingPageView> with TickerProviderSt
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: <Widget>[
-        PageView(
-          controller: _pageViewController,
-          onPageChanged: _handlePageViewChanged,
-          children: <Widget>[
-            Center(child: Text('First Page', style: textTheme.titleLarge)),
-            Center(child: Text('Second Page', style: textTheme.titleLarge)),
-            Center(child: OnboardingPage()),
-          ],
-        ),
-        PageIndicator(
-          tabController: _tabController,
-          currentPageIndex: _currentPageIndex,
-          onUpdateCurrentPageIndex: _updateCurrentPageIndex,
-          isOnDesktopAndWeb: _isOnDesktopAndWeb,
-        ),
-      ],
+    return Scaffold(
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: <Widget>[
+          PageView(
+            controller: _pageViewController,
+            onPageChanged: _handlePageViewChanged,
+            children: <Widget>[
+              Center(child: Column(
+                children: [
+                  Text('First Page', style: textTheme.titleLarge),
+                  Wrap(
+                    children: [
+                      InterestChip(label: 'Interest',),
+                      InterestChip(label: 'Interest',),
+                      InterestChip(label: 'Interest',),
+                      InterestChip(label: 'Interest',),
+                    ],
+
+                  ),
+                  ChoiceChipWidget(),
+                ],
+              )),
+              Center(child: Text('Second Page', style: textTheme.titleLarge)),
+            ],
+          ),
+          PageIndicator(
+            tabController: _tabController,
+            currentPageIndex: _currentPageIndex,
+            onUpdateCurrentPageIndex: _updateCurrentPageIndex,
+            isOnDesktopAndWeb: _isOnDesktopAndWeb,
+          ),
+        ],
+      ),
     );
   }
 

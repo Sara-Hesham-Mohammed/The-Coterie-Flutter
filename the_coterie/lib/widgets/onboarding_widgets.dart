@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:the_coterie/widgets/button.dart';
+import 'atoms/primary_button.dart';
+import 'atoms/secondary_button.dart';
 
 class OnboardingPageX extends StatelessWidget {
   final String imgPath;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:the_coterie/widgets/onboarding_widgets.dart';
-import 'package:the_coterie/widgets/skeleton.dart';
 
 class OnboardingPage extends StatefulWidget {
   OnboardingPage({super.key});

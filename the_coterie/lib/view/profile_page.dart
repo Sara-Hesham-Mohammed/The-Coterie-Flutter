@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_coterie/widgets/skeleton.dart';
+import 'package:the_coterie/utils/skeleton.dart';
 
 import '../widgets/personal_info_tile.dart';
 

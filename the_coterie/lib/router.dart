@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:the_coterie/view/browse_page.dart';
+import 'package:the_coterie/view/landing_page.dart';
 import 'package:the_coterie/view_models/EventViewModel.dart';
-import 'package:the_coterie/widgets/skeleton.dart';
+import 'package:the_coterie/utils/skeleton.dart';
 import '../view/home_page.dart';
 import '../view/single_event_page.dart';
 import '../view/log_in.dart';
@@ -33,6 +34,8 @@ class RouteGenerator {
         return buildRoute('/login', LogInPage(), false);
       case '/signup':
         return buildRoute('/signup', SignUp(), false);
+      case '/landing':
+        return buildRoute('/landing', LandingPageView(), false);
       case '/home':
         return buildRoute('/home', HomePage(), true);
       case '/browse':

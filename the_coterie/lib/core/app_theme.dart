@@ -39,7 +39,7 @@ ThemeData buildAppTheme() {
       onTertiary: AppColors.textOnLight,
       onSurface: AppColors.textPrimary,
       primaryContainer: AppColors.primaryDark,
-      secondaryContainer: AppColors.primaryLight,
+      secondaryContainer: AppColors.secondary,
     ),
     textTheme: buildCustomTextTheme(),
     cardTheme: CardTheme(
