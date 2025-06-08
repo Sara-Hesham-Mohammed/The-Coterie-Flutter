@@ -3,8 +3,9 @@ import '../../model/services/auth_service.dart';
 import 'auth_cubit_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  final AuthService _authService;
-  AuthCubit(this._authService) : super(AuthInitial()) {
+  final AuthService _authService = AuthService();
+
+  AuthCubit() : super(AuthInitial()) {
     _authService.authStateChanges.listen((user) {
       emit(user == null ? Unauthenticated() : Authenticated());
     });
@@ -30,5 +31,16 @@ class AuthCubit extends Cubit<AuthState> {
 
   void signOut() async {
     await _authService.signOut();
+  }
+
+  void checkAuth() {
+    final user = _authService.currentUser();
+    if (user != null) {
+      print('User is authenticated: ${user.email}');
+      emit(Authenticated());
+    } else {
+      print('User is not authenticated');
+      emit(Unauthenticated());
+    }
   }
 }

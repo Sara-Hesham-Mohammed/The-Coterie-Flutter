@@ -10,16 +10,18 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text("Sign Up", style: Theme.of(context).textTheme.headlineMedium),
-        SignUpForm(),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.arrow_back_ios)),
-      ],
+    return Scaffold(
+      body: Column(
+        children: [
+          Text("Sign Up", style: Theme.of(context).textTheme.headlineMedium),
+          SignUpForm(),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.arrow_back_ios)),
+        ],
+      ),
     );
   }
 }
@@ -34,20 +36,6 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Form is valid - can access the values
-      showSnackBar('Form is valid! Processing...');
-
-      // submit the form data to neo4j
-      print('Form submitted successfully!');
-      showSnackBar('Form submitted successfully!');
-    } else {
-      // Form has validation errors
-      showSnackBar('Error submitting form! Please try again.');
-    }
-  }
-
   void showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
@@ -61,6 +49,7 @@ class _SignUpFormState extends State<SignUpForm> {
     final cubit = BlocProvider.of<AuthCubit>(context);
 
     return Form(
+      key: _formKey,
       child: Column(
         children: [
           InputField(
@@ -74,9 +63,22 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: 20),
           BlockAuthConsumer(
             cubit: cubit,
-            handleSignUp: () => {
-              if (_formKey.currentState!.validate())
-                {cubit.signUp(emailController.text, passwordController.text)}
+            handleSignUp:(){
+              if (_formKey.currentState!.validate()) {
+                // Form is valid - can access the values
+                showSnackBar('Form is valid! Processing...');
+
+                print('handleSignUp called');
+
+                cubit.signUp(emailController.text, passwordController.text);
+
+                // submit the form data to neo4j
+                print('Form submitted successfully!');
+                showSnackBar('Form submitted successfully!');
+              } else {
+                // Form has validation errors
+                showSnackBar('Error submitting form! Please try again.');
+              }
             },
           ),
         ],
@@ -125,7 +127,7 @@ class BlockAuthConsumer extends StatelessWidget {
       builder: (context, state) {
         return switch (state) {
           AuthLoading() => const PrimaryButton(
-              text: '',
+              text: 'loading...',
               // Could add loading indicator here
             ),
           _ => PrimaryButton(

@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  User? get currentUser => _firebaseAuth.currentUser;
+  User? currentUser() {
+    return _firebaseAuth.currentUser;
+  }
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
@@ -21,7 +23,7 @@ class AuthService {
     }
   }
 
-  Future<User?> signUp({
+  Future<bool> signUp({
     required String email,
     required String password,
   }) async {
@@ -32,7 +34,13 @@ class AuthService {
         password: password,
       );
 
-      return credential.user;
+      final user = credential.user;
+
+      if (user != null) {
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       throw Exception('Error registering: $e');
     }
@@ -42,4 +50,6 @@ class AuthService {
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
+
+
 }

@@ -43,13 +43,16 @@ class OnbPageFinal extends StatelessWidget {
         ),),
         SizedBox(height: 75),
         OnboardingText(text: "Join The Coterie."),
+        SizedBox(height: 75),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             PrimaryButton(
                 text: "Sign Up",
                 onPressedFn: () {
                   Navigator.pushNamed(context, '/signup');
                 }),
+            SizedBox(width: 25),
             SecondaryButton(
                 text: "Log In",
                 onPressedFn: () {
@@ -79,7 +82,7 @@ class OnboardingText extends StatelessWidget {
             SizedBox(height: 100),
             Text(text,
                 style: GoogleFonts.dmSerifDisplay(
-                  fontSize: 27,
+                  fontSize: 30,
                   fontWeight: FontWeight.w400,
                   color: Color(0xFF2B2B2B),
                 )),
