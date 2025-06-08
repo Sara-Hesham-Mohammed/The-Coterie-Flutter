@@ -68,6 +68,7 @@ class __FormContentState extends State<_FormContent> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _rememberMe = CheckBoxListItem(text: 'Remember me');
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +98,11 @@ class __FormContentState extends State<_FormContent> {
                   final email = emailController.text;
                   final password = passwordController.text;
 
-                  cubit.signIn(email, password);
+                  cubit.signIn(
+                    email,
+                    password,
+                    rememberMe: _rememberMe.isChecked,
+                  );
                   SnackBarUtils.showSnackBar(context, 'Logging in...');
                 } else {
                   SnackBarUtils.showSnackBar(
@@ -108,9 +113,7 @@ class __FormContentState extends State<_FormContent> {
               btnText: 'Log in',
             ),
             _gap(),
-            CheckBoxListItem(
-              text: 'Remember me',
-            ),
+            _rememberMe,
           ],
         ),
       ),

@@ -9,12 +9,18 @@ class AuthCubit extends Cubit<AuthState> {
     _authService.authStateChanges.listen((user) {
       emit(user == null ? Unauthenticated() : Authenticated());
     });
+    // Try auto sign in when cubit is created
+    tryAutoSignIn();
   }
 
-  void signIn(String email, String password) async {
+  void signIn(String email, String password, {bool rememberMe = false}) async {
     try {
       emit(AuthLoading());
-      await _authService.signIn(email: email, password: password);
+      await _authService.signIn(
+        email: email,
+        password: password,
+        rememberMe: rememberMe,
+      );
     } catch (e) {
       emit(AuthError(e.toString()));
     }
@@ -41,6 +47,17 @@ class AuthCubit extends Cubit<AuthState> {
     } else {
       print('User is not authenticated');
       emit(Unauthenticated());
+    }
+  }
+
+  Future<void> tryAutoSignIn() async {
+    try {
+      final user = await _authService.tryAutoSignIn();
+      if (user != null) {
+        emit(Authenticated());
+      }
+    } catch (e) {
+      print('Auto sign in failed: $e');
     }
   }
 }

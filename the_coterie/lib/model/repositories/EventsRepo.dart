@@ -1,5 +1,5 @@
 import 'package:the_coterie/model/entities/Event.dart';
-import '../services/EventsService.dart';
+import '../services/events_service.dart';
 
 //used if caching is needed in the future
 

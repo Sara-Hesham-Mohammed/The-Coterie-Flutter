@@ -2,9 +2,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecureStorageService {
   static const _storage = FlutterSecureStorage();
-  static const _keyEmail = 'email';
-  static const _keyPassword = 'password';
-  static const _keyRememberMe = 'remember_me';
+  static const keyEmail = 'email';
+  static const keyPassword = 'password';
+  static const keyRememberMe = 'remember_me';
 
   // Save credentials
   static Future<void> saveCredentials({
@@ -13,9 +13,9 @@ class SecureStorageService {
     required bool rememberMe,
   }) async {
     if (rememberMe) {
-      await _storage.write(key: _keyEmail, value: email);
-      await _storage.write(key: _keyPassword, value: password);
-      await _storage.write(key: _keyRememberMe, value: rememberMe.toString());
+      await _storage.write(key: keyEmail, value: email);
+      await _storage.write(key: keyPassword, value: password);
+      await _storage.write(key: keyRememberMe, value: rememberMe.toString());
     } else {
       await clearCredentials();
     }
@@ -23,21 +23,21 @@ class SecureStorageService {
 
   // Get saved credentials
   static Future<Map<String, String?>> getCredentials() async {
-    final email = await _storage.read(key: _keyEmail);
-    final password = await _storage.read(key: _keyPassword);
-    final rememberMe = await _storage.read(key: _keyRememberMe);
+    final email = await _storage.read(key: keyEmail);
+    final password = await _storage.read(key: keyPassword);
+    final rememberMe = await _storage.read(key: keyRememberMe);
 
     return {
-      _keyEmail: email,
-      _keyPassword: password,
-      _keyRememberMe: rememberMe,
+      keyEmail: email,
+      keyPassword: password,
+      keyRememberMe: rememberMe,
     };
   }
 
   // Clear saved credentials
   static Future<void> clearCredentials() async {
-    await _storage.delete(key: _keyEmail);
-    await _storage.delete(key: _keyPassword);
-    await _storage.delete(key: _keyRememberMe);
+    await _storage.delete(key: keyEmail);
+    await _storage.delete(key: keyPassword);
+    await _storage.delete(key: keyRememberMe);
   }
 } 
