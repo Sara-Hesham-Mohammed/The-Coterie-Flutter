@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:the_coterie/view/widgets/Calendar.dart';
 import 'package:the_coterie/view/widgets/molecules/personal_info_tile.dart';
 
+import '../widgets/molecules/img_stack.dart';
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({
     super.key,
@@ -34,40 +36,85 @@ class ProfilePage extends StatelessWidget {
               name: "Jane Doe",
               bio: "Bio",
             ),
+            const SizedBox(height: 20),
+            ProfileSection(
+              title: "Interests",
+              content: Placeholder(),
+            ),
+            const SizedBox(height: 20),
+            ProfileSection(
+              title: "Profile Stats",
+              content: Placeholder(),
+            ),
             SizedBox(width: 300, height: 340, child: Calendar()),
             const SizedBox(height: 20),
-            Text(
-              "Upcoming Events",
-              style: Theme.of(context).textTheme.headlineMedium,
+            ProfileSection(
+              title: "Friends",
+              content: ImageStackWidget(),
+            ),
+            ProfileSection(
+              title: "Upcoming Events",
+              content: PlaceholderContainer(text: "No upcoming events",)// Placeholder for upcoming events
+            ),
+            ProfileSection(
+              title: "Past Events",
+              content: Placeholder(),
             ),
             const SizedBox(height: 20),
-            // Placeholder for upcoming events
-            Container(
-              height: 200,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: Text(
-                  "No upcoming events",
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              ),
+            ProfileSection(
+                title: "Setting",
+                content: PlaceholderContainer(text: "Settings\n About Us\n Contact Us\n Become a host\n",)// Placeholder for upcoming events
             ),
-            const SizedBox(height: 20),
-            Text(
-              "Past Events",
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 20),
-
-
-
           ],
         ),
       ),
     );
   }
 }
+
+class ProfileSection extends StatelessWidget {
+  final String title;
+  final Widget content;
+  const ProfileSection({super.key, required this.title, required this.content});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 20),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        const SizedBox(height: 20),
+        content,
+      ],
+    );
+  }
+}
+
+class PlaceholderContainer extends StatelessWidget {
+  final String text;
+  const PlaceholderContainer({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return   Container(
+      height: 200,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
+      ),
+    );
+  }
+}
+
