@@ -42,13 +42,16 @@ class ProfilePage extends StatelessWidget {
               title: "Interests",
               content: ProfileInterests()
             ),
-            const SizedBox(height: 20),
+
             ProfileSection(
               title: "Profile Stats",
               content: ProfileStats(),
             ),
-            SizedBox(width: 300, height: 340, child: Calendar()),
-            const SizedBox(height: 20),
+            ProfileSection(
+              title: "Calendar",
+              content: Calendar(),
+            ),
+
             ProfileSection(
               title: "Friends",
               content: ImageStackWidget(),
@@ -61,7 +64,7 @@ class ProfilePage extends StatelessWidget {
               title: "Past Events",
               content: Placeholder(),
             ),
-            const SizedBox(height: 20),
+
             ProfileSection(
                 title: "Setting",
                 content: PlaceholderContainer(text: "Settings\n About Us\n Contact Us\n Become a host\n",)// Placeholder for upcoming events
@@ -91,6 +94,7 @@ class ProfileSection extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         content,
+        const SizedBox(height: 20),
       ],
     );
   }
