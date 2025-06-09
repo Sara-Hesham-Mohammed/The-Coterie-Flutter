@@ -3,6 +3,7 @@ import 'package:the_coterie/view/widgets/Calendar.dart';
 import 'package:the_coterie/view/widgets/molecules/personal_info_tile.dart';
 
 import '../widgets/molecules/img_stack.dart';
+import '../widgets/molecules/profile_interests.dart';
 import '../widgets/molecules/profile_stats.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -39,17 +40,7 @@ class ProfilePage extends StatelessWidget {
             ),
             ProfileSection(
               title: "Interests",
-              content: Wrap(
-                spacing: 8.0,
-                runSpacing: 4.0,
-                children: [
-                  Chip(label: Text('Music')),
-                  Chip(label: Text('Art')),
-                  Chip(label: Text('Technology')),
-                  Chip(label: Text('Sports')),
-                  Chip(label: Text('Travel')),
-                ],
-              ),
+              content: ProfileInterests()
             ),
             const SizedBox(height: 20),
             ProfileSection(
