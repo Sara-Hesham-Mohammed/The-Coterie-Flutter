@@ -3,6 +3,7 @@ import 'package:the_coterie/view/widgets/Calendar.dart';
 import 'package:the_coterie/view/widgets/molecules/personal_info_tile.dart';
 
 import '../widgets/molecules/img_stack.dart';
+import '../widgets/molecules/profile_stats.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({
@@ -13,7 +14,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -36,15 +37,24 @@ class ProfilePage extends StatelessWidget {
               name: "Jane Doe",
               bio: "Bio",
             ),
-            const SizedBox(height: 20),
             ProfileSection(
               title: "Interests",
-              content: Placeholder(),
+              content: Wrap(
+                spacing: 8.0,
+                runSpacing: 4.0,
+                children: [
+                  Chip(label: Text('Music')),
+                  Chip(label: Text('Art')),
+                  Chip(label: Text('Technology')),
+                  Chip(label: Text('Sports')),
+                  Chip(label: Text('Travel')),
+                ],
+              ),
             ),
             const SizedBox(height: 20),
             ProfileSection(
               title: "Profile Stats",
-              content: Placeholder(),
+              content: ProfileStats(),
             ),
             SizedBox(width: 300, height: 340, child: Calendar()),
             const SizedBox(height: 20),
