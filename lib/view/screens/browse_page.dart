@@ -4,11 +4,12 @@ import 'package:the_coterie/view/widgets/search_bar.dart';
 import 'package:the_coterie/view_models/EventViewModel.dart';
 
 class BrowseSection extends StatelessWidget {
-  final EventViewModel viewModel;
-  const BrowseSection({super.key, required this.viewModel});
+  const BrowseSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    final EventViewModel viewModel = EventViewModel();
     return Scaffold(
       body: SafeArea(
         child: ListenableBuilder(

@@ -33,47 +33,44 @@ class OnbPageFinal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 50),
-            Image.asset(
-              'assets/social.png',
-              width: 300,
-              height: 300,
-              fit: BoxFit.cover,
-            ),
-            SizedBox(height: 75),
-            OnboardingText(text: "Join The Coterie."),
-            SizedBox(height: 75),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: PrimaryButton(
-                    text: "Sign Up",
-                    onPressedFn: () {
-                      Navigator.pushNamed(context, '/signup');
-                    },
-                  ),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(height: 50),
+          Image.asset(
+            'assets/social.png',
+            width: 300,
+            height: 300,
+            fit: BoxFit.cover,
+          ),
+          SizedBox(height: 75),
+          OnboardingText(text: "Join The Coterie."),
+          SizedBox(height: 75),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: PrimaryButton(
+                  text: "Sign Up",
+                  onPressedFn: () {
+                    Navigator.pushNamed(context, '/signup');
+                  },
                 ),
-                SizedBox(width: 25),
-                Expanded(
-                  child: SecondaryButton(
-                    text: "Log In",
-                    onPressedFn: () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                  ),
+              ),
+              SizedBox(width: 25),
+              Expanded(
+                child: SecondaryButton(
+                  text: "Log In",
+                  onPressedFn: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
                 ),
-              ],
-            ),
-            SizedBox(height: 50),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

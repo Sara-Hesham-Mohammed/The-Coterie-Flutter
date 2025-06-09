@@ -16,11 +16,16 @@ class AuthCubit extends Cubit<AuthState> {
   void signIn(String email, String password, {bool rememberMe = false}) async {
     try {
       emit(AuthLoading());
-      await _authService.signIn(
+      final success = await _authService.signIn(
         email: email,
         password: password,
         rememberMe: rememberMe,
       );
+      if (success) {
+        emit(Authenticated());
+      } else {
+        emit(AuthError('Login failed'));
+      }
     } catch (e) {
       emit(AuthError(e.toString()));
     }

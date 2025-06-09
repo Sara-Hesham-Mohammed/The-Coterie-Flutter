@@ -56,6 +56,7 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           const SizedBox(height: 20),
           BlockAuthConsumer(
+            pageRoute: '/landing',
             cubit: cubit,
             handlerFunction:(){
               if (_formKey.currentState!.validate()) {

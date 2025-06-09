@@ -14,14 +14,16 @@ import '../view/screens/onboarding_page.dart';
 class RouteGenerator {
   static MaterialPageRoute buildRoute(
       String currentRouteName, Widget childWidget, bool addBottomNav) {
-    return addBottomNav? MaterialPageRoute(
-      builder: (context) => Skeleton(
-        currentRoute: currentRouteName,
-        bodyWidget: childWidget,
-      ),
-    ): MaterialPageRoute(
-      builder: (context) => childWidget,
-    );
+    return addBottomNav
+        ? MaterialPageRoute(
+            builder: (context) => Skeleton(
+              currentRoute: currentRouteName,
+              bodyWidget: childWidget,
+            ),
+          )
+        : MaterialPageRoute(
+            builder: (context) => childWidget,
+          );
   }
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -39,16 +41,7 @@ class RouteGenerator {
       case '/home':
         return buildRoute('/home', HomePage(), true);
       case '/browse':
-        if (args is EventViewModel) {
-          return buildRoute(
-              '/browse',
-              BrowseSection(
-                viewModel: args,
-              ), true);
-        } else {
-          return _errorRoute();
-        }
-
+        return buildRoute('/browse', BrowseSection(), true);
       case '/event':
         return buildRoute('/event', EventPage(), true);
       case '/profile':

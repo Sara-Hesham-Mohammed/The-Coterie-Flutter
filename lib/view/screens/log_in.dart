@@ -93,11 +93,11 @@ class __FormContentState extends State<_FormContent> {
             ),
             _gap(),
             BlockAuthConsumer(
+              pageRoute: '/browse',
               handlerFunction: () {
                 if (_formKey.currentState!.validate()) {
                   final email = emailController.text;
                   final password = passwordController.text;
-
                   cubit.signIn(
                     email,
                     password,

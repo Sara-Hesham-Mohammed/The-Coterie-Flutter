@@ -20,10 +20,11 @@ dependencies:
   go_router: ^14.8.1
   table_calendar: ^3.2.0
   flutter_native_splash: ^2.4.4
-  firebase_auth: ^4.16.0 # Requires SDK 35
+  firebase_auth: ^5.3.0 # Requires SDK 35
   flutter_bloc: ^9.1.1
   google_fonts: ^6.2.1
   flutter_secure_storage: ^9.2.4
+  firebase_core: ^3.9.0
 
 dev_dependencies:
   flutter_test:
@@ -47,6 +48,7 @@ flutter:
     - assets/swirls.png
     - assets/Icon.png
     - assets/Icon-dark.png
+    - assets/profile.jpg
 
   # fonts:
   #   - family: Schyler

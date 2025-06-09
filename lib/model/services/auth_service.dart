@@ -13,29 +13,49 @@ class AuthService {
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  Future<User?> signIn({
+  Future<bool> signIn({
     required String email,
     required String password,
     bool rememberMe = false,
   }) async {
     try {
-      UserCredential credential =
-          await _firebaseAuth.signInWithEmailAndPassword(
+      final UserCredential credential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // Save credentials if remember me is checked
-      await SecureStorageService.saveCredentials(
-        email: email,
-        password: password,
-        rememberMe: rememberMe,
-      );
-
-      return credential.user;
+      final user = credential.user;
+      if (user != null) {
+        // Only save credentials if login was successful
+        if (rememberMe) {
+          await SecureStorageService.saveCredentials(
+            email: email,
+            password: password,
+            rememberMe: rememberMe,
+          );
+        }
+        return true;
+      }
+      return false;
+    } on FirebaseAuthException catch (e) {
+      String message = 'An error occurred during sign in';
+      switch (e.code) {
+        case 'user-not-found':
+          message = 'No user found with this email';
+          break;
+        case 'wrong-password':
+          message = 'Wrong password provided';
+          break;
+        case 'invalid-email':
+          message = 'The email address is invalid';
+          break;
+        case 'user-disabled':
+          message = 'This user account has been disabled';
+          break;
+      }
+      throw Exception(message);
     } catch (e) {
-      // Handle the case where the email is already in use or other errors
-      throw Exception('Error checking email: $e');
+      throw Exception('Failed to sign in: ${e.toString()}');
     }
   }
 
@@ -77,7 +97,7 @@ class AuthService {
   }
 
   // Try to sign in with saved credentials
-  Future<User?> tryAutoSignIn() async {
+  Future<bool> tryAutoSignIn() async {
     final credentials = await SecureStorageService.getCredentials();
     final email = credentials[SecureStorageService.keyEmail];
     final password = credentials[SecureStorageService.keyPassword];
@@ -85,12 +105,15 @@ class AuthService {
         credentials[SecureStorageService.keyRememberMe] == 'true';
 
     if (email != null && password != null && rememberMe) {
-      return signIn(
+       signIn(
         email: email,
         password: password,
         rememberMe: true,
       );
+       return true;
     }
-    return null;
+    else {
+      return false;
+    }
   }
 }

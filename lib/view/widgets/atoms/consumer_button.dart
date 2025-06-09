@@ -9,11 +9,12 @@ class BlockAuthConsumer extends StatelessWidget {
   final AuthCubit cubit;
   final VoidCallback handlerFunction;
   final String btnText;
+  final String pageRoute;
 
   const BlockAuthConsumer({
     super.key,
     required this.cubit,
-    required this.handlerFunction, required this.btnText,
+    required this.handlerFunction, required this.btnText, required this.pageRoute,
   });
 
   @override
@@ -28,7 +29,7 @@ class BlockAuthConsumer extends StatelessWidget {
       listener: (context, state) {
         switch (state) {
           case Authenticated():
-            Navigator.of(context).pushNamed('/landing');
+            Navigator.of(context).pushNamed(pageRoute);
             break;
           case AuthError():
             ScaffoldMessenger.of(context).showSnackBar(
