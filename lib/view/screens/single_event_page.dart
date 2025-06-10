@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../view_models/EventViewModel.dart';
+import '../../../view_models/event_view_model.dart';
 
 class EventPage extends StatelessWidget {
   EventPage({super.key});

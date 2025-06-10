@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:the_coterie/model/entities/Event.dart';
-import 'package:the_coterie/model/repositories/EventsRepo.dart';
+import 'package:the_coterie/model/repositories/events_repo.dart';
 
 class EventViewModel extends ChangeNotifier {
 

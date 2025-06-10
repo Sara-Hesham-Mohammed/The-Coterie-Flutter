@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_coterie/view/screens/browse_page.dart';
 import 'package:the_coterie/view/screens/landing_page.dart';
-import 'package:the_coterie/view_models/EventViewModel.dart';
+import 'package:the_coterie/view_models/event_view_model.dart';
 import '../view/screens/home_page.dart';
 import '../view/screens/profile_page.dart';
 import '../view/screens/single_event_page.dart';
