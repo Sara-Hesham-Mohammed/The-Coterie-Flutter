@@ -1,0 +1,1 @@
+ D:\\University\\Senior\ Year\\GP\\The\ Coterie\\The-Coterie-Flutter\\.dart_tool\\flutter_build\\a7c66934e59de1fc5d7f96c0a04fda49\\native_assets.json: 
