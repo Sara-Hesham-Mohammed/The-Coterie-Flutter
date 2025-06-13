@@ -3,6 +3,8 @@ import 'package:the_coterie/view/widgets/event_card.dart';
 import 'package:the_coterie/view/widgets/search_bar.dart';
 import 'package:the_coterie/view_models/event_view_model.dart';
 
+import '../location_picker.dart';
+import '../widgets/location_picker_btn.dart';
 import '../widgets/molecules/tabs.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,9 +23,9 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     viewModel.loadEvents();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SafeArea(
         child: ListenableBuilder(
@@ -32,18 +34,9 @@ class _HomePageState extends State<HomePage> {
               return Column(
                 children: [
                   // Search(),
-                  Expanded(child: Tabs()),
-                  Container(
-                    height: 125,
-                    color: Colors.blueAccent,
-                    child: SingleChildScrollView(
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: viewModel.events.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              EventCard(event: viewModel.events[index])),
-                    ),
-                  ),
+
+                  //must be wrapped in expaded (doesnt show otherwise)
+                  Expanded(child: Tabs(viewModel: viewModel)),
                 ],
               );
             }),

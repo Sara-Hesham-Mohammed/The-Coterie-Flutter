@@ -17,37 +17,48 @@ class EventCard extends StatelessWidget {
       onTap: () => Navigator.pushNamed(context, '/event', arguments: event.id),
       child: Card(
         margin: const EdgeInsets.all(8), // Spacing between cards
-        elevation: 4, // Adds a shadow effect
-        child: SizedBox(
-          width: 200, // Set width so cards appear side by side
-          height: 100,
-          child: Padding(
+        elevation: 2, // Adds a shadow effect
+        child:  Padding(
             padding: const EdgeInsets.all(10), // Space inside the card
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Hero(
-                  tag: 'placeholder',
-                  child: Image.asset('assets/placeholder.png',
-                      width: 60, height: 60),
-                ), // Image on the left
-                const SizedBox(width: 10), // Spacing between image & text
-                Column(
+            child: IntrinsicHeight(
+              child: Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min, // Prevent unnecessary space
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                     Text(event.name, style: textStyle.headlineMedium),
-                     Text(event.description, style: textStyle.bodyMedium),
-                     Text(event.location, style: textStyle.labelSmall),
-                     Text("Starts: ${event.startDate}", style: textStyle.labelSmall),
-                     Text("Attendees: ${event.maxAttendees}", style: textStyle.labelSmall),
-                  ],
+                    Hero(
+                      tag: 'placeholder',
+                      // child: Image.asset('assets/placeholder.png',
+                      //     width: 60, height: 60),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child:
+                          event.imagesSrcs != null && event.imagesSrcs!.isNotEmpty
+                              ? Image.network(
+                            event.imagesSrcs!.first,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset('assets/placeholder.png', width: 60, height: 60);
+                            },
+                          )
+                              : Image.asset('assets/placeholder.png', width: 60, height: 60),
+
+                      ),
+                    ), // Image on the left
+                    const SizedBox(width: 10), // Spacing between image & text
+                
+                         Text(event.name, style: textStyle.headlineMedium),
+                         Text(event.description, style: textStyle.bodyMedium),
+                         Text(event.location?['name'] ?? 'no loc', style: textStyle.labelSmall),
+                         Text("Starts: ${event.startDate}", style: textStyle.labelSmall),
+                         Text("Attendees: ${event.maxAttendees}", style: textStyle.labelSmall),
+                      ],
+                
                 ),
-              ],
+              ),
             ),
           ),
         ),
-      ),
     );
   }
 }

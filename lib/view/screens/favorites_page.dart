@@ -10,6 +10,9 @@ class FavoriteEventsPage extends StatelessWidget {
         Text("FAVOURITES"),
         const SizedBox(height: 20),
         Placeholder(),
+        TextButton(onPressed: (){
+          Navigator.of(context).pushNamed('/landing');
+        }, child: Text("Press"))
       ],
     );
   }

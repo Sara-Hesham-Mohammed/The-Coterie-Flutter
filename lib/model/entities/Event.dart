@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import './Tag.dart';
 import './Group.dart';
 
@@ -12,7 +14,7 @@ class Event {
   final String description; // Changed from eventDescription to match DTO
   final EventType? type; // Made optional since DTO doesn't have this
   final String? hostName; // Made optional since DTO doesn't have this
-  final dynamic location; // Changed to dynamic to match LocationDTO structure
+  final Map<String, String>? location; // Changed to dynamic to match LocationDTO structure
   final Set<Tag>? tags; // Made optional since DTO doesn't have this
   final Set<Group>? groupsAttending; // Made optional since DTO doesn't have this
   final DateTime? startDate; // Changed from startTime and made nullable to match DTO
@@ -22,8 +24,9 @@ class Event {
   final double? price; // Made optional since DTO doesn't have this
   final bool? isRecurring; // Made optional since DTO doesn't have this
   final int? maxAttendees; // Made optional since DTO doesn't have this
+  final List<String>? imagesSrcs;
 
-  Event({
+  Event( {
     required this.id,
     required this.name,
     required this.description,
@@ -39,6 +42,7 @@ class Event {
     this.price,
     this.isRecurring,
     this.maxAttendees,
+    this.imagesSrcs,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {

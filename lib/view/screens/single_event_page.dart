@@ -49,6 +49,7 @@ class EventTitle extends StatelessWidget {
             'Event',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
+          ImageScroll(),
           Text('Event Details'),
         ],
       ),

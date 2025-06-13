@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../view/widgets/location_picker_btn.dart';
+
 class Skeleton extends StatefulWidget {
   final Widget bodyWidget;
   final String currentRoute;
@@ -50,6 +52,8 @@ class _SkeletonState extends State<Skeleton> {
 
   @override
   Widget build(BuildContext context) {
+    String? _selectedLocation;
+
     TextStyle titleStyle = Theme.of(context).textTheme.headlineLarge!.copyWith(
       color: Theme.of(context).colorScheme.onSurface,
     );
@@ -59,6 +63,25 @@ class _SkeletonState extends State<Skeleton> {
         title: Text(_getTitle(),
           style: titleStyle,
         ),
+        actions: [
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              LocationPickerButton(
+                selectedLocation: _selectedLocation,
+                onLocationSelected: (location) {
+                  setState(() {
+                    _selectedLocation = location.toString();
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Selected: $_selectedLocation')),
+                  );
+                },
+              ),
+              Text("Cairo, Egypt", style: TextStyle(fontSize: 10),)
+            ],
+          ),
+        ],
       ),
       body: widget.bodyWidget,
       bottomNavigationBar: NavigationBar(

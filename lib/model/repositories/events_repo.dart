@@ -8,7 +8,8 @@ class EventsRepo {
 
   Future<List<Event>> getAllEvents() async {
     try {
-      return await service.getAllEvents();
+      // return await service.getAllEvents();
+      return await service.getMockEvents();
     } catch (e) {
       print('Error fetching events: $e');
       return [];

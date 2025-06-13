@@ -93,7 +93,7 @@ class __FormContentState extends State<_FormContent> {
             ),
             _gap(),
             BlockAuthConsumer(
-              pageRoute: '/browse',
+              pageRoute: '/home',
               handlerFunction: () {
                 if (_formKey.currentState!.validate()) {
                   final email = emailController.text;
