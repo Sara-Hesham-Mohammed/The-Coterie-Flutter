@@ -8,23 +8,47 @@ class Tabs extends StatelessWidget {
     return DefaultTabController(
       initialIndex: 1,
       length: 2,
-      child: Scaffold(// lazm material widget, layout widgets and such cause an error idk why?
-        appBar: AppBar(
-          title: const Text('Events Page'),
-          bottom: const TabBar(
-            tabs: <Widget>[
-              Tab(text: 'Browse'),
+      child: Column(
+        children: [
+           TabBar(
+            tabs: [
+              Tab(text: 'Explore'),
               Tab(text: 'For You'),
             ],
+            indicatorColor: Theme.of(context).colorScheme.secondary, // Customize the indicator color
+            labelColor: Theme.of(context).colorScheme.secondary, // Customize the selected tab text color
+            unselectedLabelColor: Colors.grey, // Customize unselected tab text color
           ),
-        ),
-        body: const TabBarView(
-          children: <Widget>[
-            Center(child: Placeholder()),
-            Center(child: Placeholder()),
-          ],
-        ),
-      ),
-    );
+          Expanded(
+            child: TabBarView(
+                children: <Widget>[
+                  //tab 1
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Center(child: Placeholder()),
+                        Center(child: Placeholder()),
+                        Center(child: Placeholder()),
+                        Center(child: Placeholder()),
+                      ],
+                    ),
+                  ),
+                   // tab 2
+                   SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Center(child: Placeholder()),
+                        Center(child: Placeholder()),
+                        Center(child: Placeholder()),
+                        Center(child: Placeholder()),
+                      ],
+                    ),
+                  )
+
+                ],
+                ),
+          ),
+        ],
+      ));
   }
 }
