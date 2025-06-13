@@ -40,14 +40,18 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       ImageStackWidget(),
                       SizedBox(width: 50),
-                      TextButton(onPressed: (){
-                        Navigator.of(context).pushNamed('/friends-list');
-                      }, child: Text(
-                          "+20",
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.onTertiary,
-                          ))
-                      ,
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/friends-list');
+                        },
+                        child: Text("+20",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onTertiary,
+                                )),
                       ),
                     ],
                   ),
@@ -62,7 +66,7 @@ class ProfilePage extends StatelessWidget {
             ),
             ProfileSection(
                 title: "Upcoming Events",
-                content: PlaceholderContainer(
+                content: ProfileBottom(
                   text: "No upcoming events",
                 ) // Placeholder for upcoming events
                 ),
@@ -72,7 +76,7 @@ class ProfilePage extends StatelessWidget {
             ),
             ProfileSection(
                 title: "Setting",
-                content: PlaceholderContainer(
+                content: ProfileBottom(
                   text: "Settings\n About Us\n Contact Us\n Become a host\n",
                 ) // Placeholder for upcoming events
                 ),
@@ -107,9 +111,9 @@ class ProfileSection extends StatelessWidget {
   }
 }
 
-class PlaceholderContainer extends StatelessWidget {
+class ProfileBottom extends StatelessWidget {
   final String text;
-  const PlaceholderContainer({super.key, required this.text});
+  const ProfileBottom({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -121,9 +125,14 @@ class PlaceholderContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Center(
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.bodyLarge,
+        child: TextButton(
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          onPressed: () {
+
+          },
         ),
       ),
     );

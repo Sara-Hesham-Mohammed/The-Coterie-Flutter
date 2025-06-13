@@ -8,9 +8,11 @@ class EventsService {
 
   //fetch data from API
   Future<List<Event>> getAllEvents() async {
+    print("GETTING EVENTS FROM API");
     final response = await http.get(
       Uri.parse(URL),
     );
+    print(response);
 
     if (response.statusCode == 200) {
       dynamic jsonData = jsonDecode(response.body);

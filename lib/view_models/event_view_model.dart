@@ -5,8 +5,6 @@ import 'package:the_coterie/model/entities/Event.dart';
 import 'package:the_coterie/model/repositories/events_repo.dart';
 
 class EventViewModel extends ChangeNotifier {
-
-
   bool _isLoading = false;
   final EventsRepo _repo = EventsRepo();
   final List<Event> _events = [];
@@ -29,6 +27,8 @@ class EventViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<List<Event>> loadEvents() => _loadEvents();
 
   //TODO: make these for admins only
   void addEvent(Event newEvent) {
