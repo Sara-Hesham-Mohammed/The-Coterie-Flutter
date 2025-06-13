@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import '../../../view_models/event_view_model.dart';
 
 class EventPage extends StatelessWidget {
-  EventPage({super.key});
+  final int eventId;
+  EventPage({super.key, required this.eventId});
 
   @override
   Widget build(BuildContext context) {

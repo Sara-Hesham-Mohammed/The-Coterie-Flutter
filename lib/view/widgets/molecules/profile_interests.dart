@@ -8,7 +8,7 @@ class ProfileInterests extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 40.0, // Horizontal space between chips
+      spacing: 15.0, // Horizontal space between chips
       runSpacing: 4.0, // Vertical space between chips
       children: [
         IconChip(
@@ -20,6 +20,13 @@ class ProfileInterests extends StatelessWidget {
           icon: Icons.brush_rounded,
         ),
         IconChip(
+          label: 'Technology',
+          icon: Icons.computer_rounded,
+        ),
+        IconChip(
+          label: 'Sports',
+          icon: Icons.sports_rounded,
+        ), IconChip(
           label: 'Technology',
           icon: Icons.computer_rounded,
         ),

@@ -14,13 +14,7 @@ class EventCard extends StatelessWidget {
     TextTheme textStyle = Theme.of(context).textTheme;
 
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute<void>(
-            builder: (context) => EventPage(),
-          ),
-        );
-      },
+      onTap: () => Navigator.pushNamed(context, '/event', arguments: event.id),
       child: Card(
         margin: const EdgeInsets.all(8), // Spacing between cards
         elevation: 4, // Adds a shadow effect

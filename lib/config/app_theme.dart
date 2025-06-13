@@ -3,8 +3,8 @@ import 'package:the_coterie/config/text_theme.dart';
 
 class AppColors {
   // Primary Purple (Main brand color)
-  static const Color primary = Color(0xFF5629D7);
-
+  static const Color primary = Color(0xFF3738D3);
+  static const Color primaryGray = Color(0xFFCECDDF);
   // Light Background
   static const Color background = Color(0xFFFFFDFB);
 

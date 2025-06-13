@@ -3,7 +3,7 @@ import './Group.dart';
 
 // eventState Enum
 enum EventState { Upcoming, Ongoing, Ended, Canceled }
-enum EventType { TBD }
+enum EventType { TBD } // concert, conference, workshop etc.
 
 // event Model
 class Event {

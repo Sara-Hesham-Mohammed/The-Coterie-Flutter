@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_coterie/view/screens/browse_page.dart';
 import 'package:the_coterie/view/screens/landing_page.dart';
-import 'package:the_coterie/view_models/event_view_model.dart';
+import '../view/screens/friends_list.dart';
 import '../view/screens/home_page.dart';
 import '../view/screens/profile_page.dart';
 import '../view/screens/single_event_page.dart';
@@ -16,14 +16,14 @@ class RouteGenerator {
       String currentRouteName, Widget childWidget, bool addBottomNav) {
     return addBottomNav
         ? MaterialPageRoute(
-            builder: (context) => Skeleton(
-              currentRoute: currentRouteName,
-              bodyWidget: childWidget,
-            ),
-          )
+      builder: (context) => Skeleton(
+        currentRoute: currentRouteName,
+        bodyWidget: childWidget,
+      ),
+    )
         : MaterialPageRoute(
-            builder: (context) => childWidget,
-          );
+      builder: (context) => childWidget,
+    );
   }
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -43,14 +43,20 @@ class RouteGenerator {
       case '/browse':
         return buildRoute('/browse', BrowseSection(), true);
       case '/event':
-        return buildRoute('/event', EventPage(), true);
+        if(args is int) {
+          return buildRoute('/event', EventPage(eventId: args), true);
+        } else {
+          return _errorRoute();
+        }
       case '/profile':
         return buildRoute('/profile', ProfilePage(), true);
       case '/favorites':
         return buildRoute('/favorites', FavoriteEventsPage(), true);
+      case '/friends-list':
+        return buildRoute('/friends-list', FriendsListPage(), true);
       default:
         return MaterialPageRoute(
-          builder: (_) => Scaffold(
+          builder: (context) => Scaffold(
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -59,9 +65,22 @@ class RouteGenerator {
                   SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(_, '/onboarding');
+                      // Fixed: Use correct route name
+                      Navigator.pushNamed(context, '/');
                     },
                     child: Text('Go to Onboarding'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Fixed: Use correct context and add safety check
+                      if (Navigator.canPop(context)) {
+                        Navigator.of(context).pop();
+                      } else {
+                        // If can't pop, navigate to home or onboarding
+                        Navigator.pushReplacementNamed(context, '/');
+                      }
+                    },
+                    child: Text('Go back'),
                   ),
                 ],
               ),
@@ -72,13 +91,30 @@ class RouteGenerator {
   }
 
   static Route<dynamic> _errorRoute() {
-    return MaterialPageRoute(builder: (_) {
+    return MaterialPageRoute(builder: (context) {
       return Scaffold(
         appBar: AppBar(
           title: Text('Error'),
+          // AppBar automatically adds back button, but we can customize its behavior
         ),
         body: Center(
-          child: Text('ERROR'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('ERROR'),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  if (Navigator.canPop(context)) {
+                    Navigator.of(context).pop();
+                  } else {
+                    Navigator.pushReplacementNamed(context, '/');
+                  }
+                },
+                child: Text('Go Back'),
+              ),
+            ],
+          ),
         ),
       );
     });

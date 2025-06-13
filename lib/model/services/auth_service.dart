@@ -1,119 +1,142 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'secure_storage_service.dart';
 
 class AuthService {
-  final FirebaseAuth _firebaseAuth;
+  static const String _isLoggedInKey = 'isLoggedIn';
+  static const String _userEmailKey = 'userEmail';
+  static const String _rememberMeKey = 'rememberMe';
 
-  AuthService({FirebaseAuth? auth})
-      : _firebaseAuth = auth ?? FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  User? currentUser() {
-    return _firebaseAuth.currentUser;
-  }
-
+  // Stream of auth state changes
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
+  // Get current user
+  User? currentUser() => _firebaseAuth.currentUser;
+
+  // Sign in method
   Future<bool> signIn({
     required String email,
     required String password,
     bool rememberMe = false,
   }) async {
     try {
-      final UserCredential credential = await _firebaseAuth.signInWithEmailAndPassword(
+      final credential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      final user = credential.user;
-      if (user != null) {
-        // Only save credentials if login was successful
-        if (rememberMe) {
-          await SecureStorageService.saveCredentials(
-            email: email,
-            password: password,
-            rememberMe: rememberMe,
-          );
-        }
+      if (credential.user != null) {
+        // Save login state to SharedPreferences
+        await _saveLoginState(
+          email: email,
+          rememberMe: rememberMe,
+        );
         return true;
       }
       return false;
-    } on FirebaseAuthException catch (e) {
-      String message = 'An error occurred during sign in';
-      switch (e.code) {
-        case 'user-not-found':
-          message = 'No user found with this email';
-          break;
-        case 'wrong-password':
-          message = 'Wrong password provided';
-          break;
-        case 'invalid-email':
-          message = 'The email address is invalid';
-          break;
-        case 'user-disabled':
-          message = 'This user account has been disabled';
-          break;
-      }
-      throw Exception(message);
     } catch (e) {
-      throw Exception('Failed to sign in: ${e.toString()}');
+      print('Sign in error: $e');
+      throw e;
     }
   }
 
-  Future<bool> signUp({
+  // Sign up method
+  Future<void> signUp({
     required String email,
     required String password,
   }) async {
     try {
-      UserCredential credential =
-          await _firebaseAuth.createUserWithEmailAndPassword(
+      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      final user = credential.user;
-
-      if (user != null) {
-        return true;
-      } else {
-        return false;
+      if (credential.user != null) {
+        // Save login state after successful signup
+        await _saveLoginState(
+          email: email,
+          rememberMe: true, // Default to true for new signups
+        );
       }
     } catch (e) {
-      throw Exception('Error registering: $e');
+      print('Sign up error: $e');
+      throw e;
     }
   }
 
+  // Sign out method
   Future<void> signOut() async {
-    await _firebaseAuth.signOut();
-    await SecureStorageService.clearCredentials();
-  }
-
-  Future<void> resetPassword(String email) async {
     try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email);
-      print('Password reset email sent to $email');
+      await _firebaseAuth.signOut();
+      // Clear saved login state
+      await _clearLoginState();
     } catch (e) {
-      print('Error sending reset email: $e');
+      print('Sign out error: $e');
+      throw e;
     }
   }
 
-  // Try to sign in with saved credentials
-  Future<bool> tryAutoSignIn() async {
-    final credentials = await SecureStorageService.getCredentials();
-    final email = credentials[SecureStorageService.keyEmail];
-    final password = credentials[SecureStorageService.keyPassword];
-    final rememberMe =
-        credentials[SecureStorageService.keyRememberMe] == 'true';
+  // Try auto sign in using saved credentials
+  Future<User?> tryAutoSignIn() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final isLoggedIn = prefs.getBool(_isLoggedInKey) ?? false;
+      final rememberMe = prefs.getBool(_rememberMeKey) ?? false;
 
-    if (email != null && password != null && rememberMe) {
-       signIn(
-        email: email,
-        password: password,
-        rememberMe: true,
-      );
-       return true;
+      // Only auto sign in if user chose to be remembered
+      if (isLoggedIn && rememberMe) {
+        // Firebase handles persistence automatically, just return current user
+        final user = _firebaseAuth.currentUser;
+        if (user != null) {
+          print('Auto sign in successful for: ${user.email}');
+          return user;
+        } else {
+          // User data exists in SharedPreferences but not in Firebase
+          // This might happen if Firebase session expired
+          await _clearLoginState();
+        }
+      }
+      return null;
+    } catch (e) {
+      print('Auto sign in failed: $e');
+      await _clearLoginState();
+      return null;
     }
-    else {
-      return false;
-    }
+  }
+
+  // Check if user should stay logged in
+  Future<bool> shouldStayLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isLoggedIn = prefs.getBool(_isLoggedInKey) ?? false;
+    final rememberMe = prefs.getBool(_rememberMeKey) ?? false;
+    return isLoggedIn && rememberMe;
+  }
+
+  // Get saved user email
+  Future<String?> getSavedEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_userEmailKey);
+  }
+
+  // Private method to save login state
+  Future<void> _saveLoginState({
+    required String email,
+    required bool rememberMe,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_isLoggedInKey, true);
+    await prefs.setString(_userEmailKey, email);
+    await prefs.setBool(_rememberMeKey, rememberMe);
+    print('Login state saved - Email: $email, RememberMe: $rememberMe');
+  }
+
+  // Private method to clear login state
+  Future<void> _clearLoginState() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_isLoggedInKey);
+    await prefs.remove(_userEmailKey);
+    await prefs.remove(_rememberMeKey);
+    print('Login state cleared');
   }
 }

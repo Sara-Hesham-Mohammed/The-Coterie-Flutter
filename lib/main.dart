@@ -17,7 +17,6 @@ Future<void> initializeApp() async {
   await Firebase.initializeApp();
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -28,6 +27,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthCubit>(
           create: (context) {
             final cubit = AuthCubit();
+            // Check auth state when app starts
             cubit.checkAuth();
             return cubit;
           },
@@ -35,22 +35,32 @@ class MyApp extends StatelessWidget {
       ],
       child: Builder(
         builder: (context) {
-          final authCubit = BlocProvider.of<AuthCubit>(context);
-
           return BlocBuilder<AuthCubit, AuthState>(
-              bloc: authCubit,
-              buildWhen: (previous, current) =>
-                  current is Authenticated || current is AuthInitial,
-              builder: (context, state) {
-                return MaterialApp(
-                  title: 'The Coterie',
-                  theme: buildAppTheme(),
-                  initialRoute: '/',
-                  onGenerateRoute: (RouteGenerator.generateRoute),
-                );
-              });
+            builder: (context, state) {
+              return MaterialApp(
+                title: 'The Coterie',
+                theme: buildAppTheme(),
+                initialRoute: _getInitialRoute(state),
+                onGenerateRoute: RouteGenerator.generateRoute,
+                debugShowCheckedModeBanner: false,
+              );
+            },
+          );
         },
       ),
     );
+  }
+
+  String _getInitialRoute(AuthState state) {
+    switch (state.runtimeType) {
+      case Authenticated:
+        return '/home';  // Go directly to home if authenticated
+      case Unauthenticated:
+        return '/';      // Go to onboarding/landing if not authenticated
+      case AuthLoading:
+      case AuthInitial:
+      default:
+        return '/';      // Default to onboarding while loading
+    }
   }
 }

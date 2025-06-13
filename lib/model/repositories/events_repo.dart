@@ -15,4 +15,13 @@ class EventsRepo {
     }
   }
 
+  Future<Event> getEventById(int eventId) {
+    try {
+      return service.getEventById(eventId);
+    } catch (e) {
+      print('Error fetching event by ID: $e');
+      return Future.error(e);
+    }
+  }
+
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_coterie/view/widgets/Calendar.dart';
 import 'package:the_coterie/view/widgets/molecules/personal_info_tile.dart';
+import 'package:the_coterie/view/widgets/pfp.dart';
 
 import '../widgets/molecules/img_stack.dart';
 import '../widgets/molecules/profile_interests.dart';
@@ -19,56 +20,62 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: new BorderRadius.all(new Radius.circular(40.0)),
-                border: new Border.all(
-                  color: Colors.black,
-                  width: 2.0,
-                ),
+            Column(children: [
+              ProfilePic(),
+              PersonalInfoTile(
+                name: "Jane Doe",
+                bio:
+                    "From San Francisco, CA\nLover of art, music, and technology",
               ),
-              child: CircleAvatar(
-                foregroundImage:
-                    Image(image: AssetImage('./assets/profile.jpg')).image,
-                foregroundColor: Colors.black,
-                radius: 30.0,
-              ),
-            ),
-            PersonalInfoTile(
-              name: "Jane Doe",
-              bio: "Bio",
-            ),
+            ]),
             ProfileSection(
-              title: "Interests",
-              content: ProfileInterests()
+                title: "Interests",
+                content: SizedBox(child: ProfileInterests())),
+            ProfileSection(
+                title: "Friends",
+                content: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ImageStackWidget(),
+                      SizedBox(width: 50),
+                      TextButton(onPressed: (){
+                        Navigator.of(context).pushNamed('/friends-list');
+                      }, child: Text(
+                          "+20",
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.onTertiary,
+                          ))
+                      ,
+                      ),
+                    ],
+                  ),
+                )),
+            ProfileSection(
+              title: "Calendar",
+              content: Calendar(),
             ),
-
             ProfileSection(
               title: "Profile Stats",
               content: ProfileStats(),
             ),
             ProfileSection(
-              title: "Calendar",
-              content: Calendar(),
-            ),
-
-            ProfileSection(
-              title: "Friends",
-              content: ImageStackWidget(),
-            ),
-            ProfileSection(
-              title: "Upcoming Events",
-              content: PlaceholderContainer(text: "No upcoming events",)// Placeholder for upcoming events
-            ),
+                title: "Upcoming Events",
+                content: PlaceholderContainer(
+                  text: "No upcoming events",
+                ) // Placeholder for upcoming events
+                ),
             ProfileSection(
               title: "Past Events",
               content: Placeholder(),
             ),
-
             ProfileSection(
                 title: "Setting",
-                content: PlaceholderContainer(text: "Settings\n About Us\n Contact Us\n Become a host\n",)// Placeholder for upcoming events
-            ),
+                content: PlaceholderContainer(
+                  text: "Settings\n About Us\n Contact Us\n Become a host\n",
+                ) // Placeholder for upcoming events
+                ),
           ],
         ),
       ),
@@ -106,7 +113,7 @@ class PlaceholderContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   Container(
+    return Container(
       height: 200,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -122,4 +129,3 @@ class PlaceholderContainer extends StatelessWidget {
     );
   }
 }
-

@@ -6,11 +6,18 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthService _authService = AuthService();
 
   AuthCubit() : super(AuthInitial()) {
+    _initializeAuth();
+  }
+
+  void _initializeAuth() {
+    // Listen to Firebase auth state changes
     _authService.authStateChanges.listen((user) {
-      emit(user == null ? Unauthenticated() : Authenticated());
+      if (user == null) {
+        emit(Unauthenticated());
+      } else {
+        emit(Authenticated());
+      }
     });
-    // Try auto sign in when cubit is created
-    tryAutoSignIn();
   }
 
   void signIn(String email, String password, {bool rememberMe = false}) async {
@@ -35,34 +42,73 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       emit(AuthLoading());
       await _authService.signUp(email: email, password: password);
+      // The auth state listener will automatically emit Authenticated
     } catch (e) {
       emit(AuthError(e.toString()));
     }
   }
 
   void signOut() async {
-    await _authService.signOut();
+    try {
+      emit(AuthLoading());
+      await _authService.signOut();
+      // The auth state listener will automatically emit Unauthenticated
+    } catch (e) {
+      emit(AuthError('Sign out failed: ${e.toString()}'));
+    }
   }
 
-  void checkAuth() {
-    final user = _authService.currentUser();
-    if (user != null) {
-      print('User is authenticated: ${user.email}');
-      emit(Authenticated());
-    } else {
-      print('User is not authenticated');
+  void checkAuth() async {
+    try {
+      emit(AuthLoading());
+
+      // First check if there's a current Firebase user
+      final currentUser = _authService.currentUser();
+
+      if (currentUser != null) {
+        // User is already signed in to Firebase
+        print('User is authenticated: ${currentUser.email}');
+        emit(Authenticated());
+      } else {
+        // Try auto sign in using saved preferences
+        final user = await _authService.tryAutoSignIn();
+        if (user != null) {
+          print('Auto sign in successful: ${user.email}');
+          emit(Authenticated());
+        } else {
+          print('User is not authenticated');
+          emit(Unauthenticated());
+        }
+      }
+    } catch (e) {
+      print('Check auth failed: $e');
       emit(Unauthenticated());
     }
   }
 
   Future<void> tryAutoSignIn() async {
     try {
-      final user = await _authService.tryAutoSignIn();
-      if (user != null) {
-        emit(Authenticated());
+      // Check if user should stay logged in
+      final shouldStay = await _authService.shouldStayLoggedIn();
+
+      if (shouldStay) {
+        final user = await _authService.tryAutoSignIn();
+        if (user != null) {
+          emit(Authenticated());
+        } else {
+          emit(Unauthenticated());
+        }
+      } else {
+        emit(Unauthenticated());
       }
     } catch (e) {
       print('Auto sign in failed: $e');
+      emit(Unauthenticated());
     }
+  }
+
+  // Get saved email for pre-filling login form
+  Future<String?> getSavedEmail() async {
+    return await _authService.getSavedEmail();
   }
 }

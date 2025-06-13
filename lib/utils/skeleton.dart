@@ -50,10 +50,15 @@ class _SkeletonState extends State<Skeleton> {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle titleStyle = Theme.of(context).textTheme.headlineLarge!.copyWith(
+      color: Theme.of(context).colorScheme.onSecondaryContainer,
+    );
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(_getTitle()),
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        title: Text(_getTitle(),
+          style: titleStyle,
+        ),
       ),
       body: widget.bodyWidget,
       bottomNavigationBar: NavigationBar(
