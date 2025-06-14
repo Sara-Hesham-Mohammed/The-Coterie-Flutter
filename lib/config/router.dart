@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_coterie/view/screens/landing_page.dart';
+import '../model/entities/Event.dart';
 import '../view/screens/friends_list.dart';
 import '../view/screens/home_page.dart';
 import '../view/screens/profile_page.dart';
@@ -40,8 +41,8 @@ class RouteGenerator {
       case '/home':
         return buildRoute('/home', HomePage(), true);
       case '/event':
-        if(args is int) {
-          return buildRoute('/event', EventPage(eventId: args), true);
+        if(args is Event) {
+          return buildRoute('/event', EventPage(event: args), true);
         } else {
           return _errorRoute();
         }

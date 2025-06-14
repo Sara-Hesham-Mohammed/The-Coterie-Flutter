@@ -10,7 +10,7 @@ class AppColors {
 
   // Dark Blue (For text/accents)
   static const Color secondary = Color(0xFF082563);
-  static const Color tertiary = Color(0xFF8B8BA1);
+  static const Color tertiary = Color(0xFFD2D2ED);
   static const Color tertiaryLight = Color(0xFFE1E6F0);
 
   static const Color contrast = Color(0xFF902D41);

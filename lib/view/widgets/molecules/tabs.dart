@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../view_models/event_view_model.dart';
+import '../../screens/single_event_page.dart';
 import '../event_card.dart';
 import '../../../utils/msg_snackbar.dart';
 
@@ -11,7 +12,7 @@ class Tabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        initialIndex: 1,
+        initialIndex: 0,
         length: 2,
         child: Column(
           children: [
@@ -27,7 +28,7 @@ class Tabs extends StatelessWidget {
                   .colorScheme
                   .secondary, // Customize the selected tab text color
               unselectedLabelColor:
-                  Colors.grey, // Customize unselected tab text color
+              Colors.grey, // Customize unselected tab text color
             ),
             Expanded(
               child: TabBarView(
@@ -53,10 +54,24 @@ class Tabs extends StatelessWidget {
                           throw 'Refresh Error';
                         },
                         child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: viewModel.events.length,
-                            itemBuilder: (BuildContext context, int index) =>
-                                EventCard(event: viewModel.events[index])),
+                          scrollDirection: Axis.vertical,
+                          itemCount: viewModel.events.length,
+                          itemBuilder: (BuildContext context, int index) =>
+                              GestureDetector(
+                                onTap: () {
+                                  // Navigate to single event page with event data
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EventPage(
+                                        event: viewModel.events[index],
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: EventCard(event: viewModel.events[index]),
+                              ),
+                        ),
                       ),
                     ),
                   ),
