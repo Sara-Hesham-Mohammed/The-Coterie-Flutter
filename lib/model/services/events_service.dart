@@ -2,14 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:the_coterie/model/entities/Event.dart';
+import 'package:the_coterie/utils/constants.dart';
 import '../entities/FilterCategoriesEnum.dart';
 import 'package:intl/intl.dart'; // For date parsing
 
 
 class EventsService {
-  // String URL = 'http://localhost:3000/events/all-events/EG';
-  //the emulator's local ip
-  String URL = 'http://10.0.2.2:3000/events/all-events/EG';
+  String URL = GATEWAY+EVENTS_ENDPOINT;
 
   //fetch data from API
   Future<List<Event>> getAllEvents() async {

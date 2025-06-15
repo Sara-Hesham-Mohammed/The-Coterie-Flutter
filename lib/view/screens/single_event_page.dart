@@ -127,9 +127,9 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
               SnackBarUtils.showSnackBar(context, 'RSVP confirmed!');
 
               // TODO: HANDLE CLUSTERING AND CHANGE THE SCREEN
-             if(_showWidget){
-               if(CountdownWidget.hasEnded)
-             }
+             // if(_showWidget){
+             //   if(CountdownWidget.hasEnded)
+             // }
 
             },
             child: const Text('Yes'),

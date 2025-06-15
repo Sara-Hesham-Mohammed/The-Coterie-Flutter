@@ -1,5 +1,9 @@
+import 'package:json_annotation/json_annotation.dart';
 import './Category.dart';
 
+part 'Tag.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class Tag {
   final int tagID;
   final String tagName;
@@ -13,14 +17,6 @@ class Tag {
     this.subCategory,
   });
 
-  factory Tag.fromJson(Map<String, dynamic> json) {
-    return Tag(
-      tagID: json['tagID'],
-      tagName: json['tagName'],
-      tagCategory: Category.values.firstWhere(
-        (e) => e.toString().split('.').last == json['tagCategory'],
-        orElse: () => Category.DefaultInterest, // fallback if not found
-      ),
-    );
-  }
+  factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
+  Map<String, dynamic> toJson() => _$TagToJson(this);
 }

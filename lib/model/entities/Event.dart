@@ -1,32 +1,36 @@
-import 'dart:ui';
-
+import 'package:json_annotation/json_annotation.dart';
 import './Tag.dart';
 import './Group.dart';
+import './User.dart';
+
+part 'Event.g.dart';
 
 // eventState Enum
 enum EventState { Upcoming, Ongoing, Ended, Canceled }
 enum EventType { TBD } // concert, conference, workshop etc.
 
 // event Model
+@JsonSerializable()
 class Event {
-  final int id; // Changed from eventID to match DTO
-  final String name; // Changed from eventTitle to match DTO
-  final String description; // Changed from eventDescription to match DTO
-  final EventType? type; // Made optional since DTO doesn't have this
-  final String? hostName; // Made optional since DTO doesn't have this
-  final Map<String, String>? location; // Changed to dynamic to match LocationDTO structure
-  final Set<Tag>? tags; // Made optional since DTO doesn't have this
-  final Set<Group>? groupsAttending; // Made optional since DTO doesn't have this
-  final DateTime? startDate; // Changed from startTime and made nullable to match DTO
-  final DateTime? endDate; // Changed from endTime and made nullable to match DTO
-  final EventState? status; // Made optional since DTO doesn't have this
-  final bool? isPaid; // Made optional since DTO doesn't have this
-  final double? price; // Made optional since DTO doesn't have this
-  final bool? isRecurring; // Made optional since DTO doesn't have this
-  final int? maxAttendees; // Made optional since DTO doesn't have this
+  final int id;
+  final String name;
+  final String description;
+  final EventType? type;
+  final String? hostName;
+  final Map<String, String>? location;
+  final Set<Tag>? tags;
+  final Set<Group>? groupsAttending;
+  final DateTime? startDate;
+  final DateTime? endDate;
+  final EventState? status;
+  final bool? isPaid;
+  final double? price;
+  final bool? isRecurring;
+  final int? maxAttendees;
   final List<String>? imagesSrcs;
+  final List<User>? rsvps;
 
-  Event( {
+  Event({
     required this.id,
     required this.name,
     required this.description,
@@ -43,45 +47,9 @@ class Event {
     this.isRecurring,
     this.maxAttendees,
     this.imagesSrcs,
+    this.rsvps,
   });
 
-  factory Event.fromJson(Map<String, dynamic> json) {
-    return Event(
-      id: json['id'],
-      name: json['name'],
-      description: json['description'],
-      type: json['type'] != null
-          ? EventType.values.firstWhere(
-            (e) => e.toString().split('.').last.toLowerCase() ==
-            json['type'].toString().toLowerCase(),
-        orElse: () => EventType.TBD,
-      )
-          : null,
-      hostName: json['hostName'],
-      location: json['location'], // This will be the LocationDTO object
-      tags: (json['tags'] as List<dynamic>?)
-          ?.map((tag) => Tag.fromJson(tag))
-          .toSet(),
-      groupsAttending: (json['groupsAttending'] as List<dynamic>?)
-          ?.map((group) => Group.fromJson(group))
-          .toSet(),
-      startDate: json['startDate'] != null
-          ? DateTime.parse(json['startDate'])
-          : null,
-      endDate: json['endDate'] != null
-          ? DateTime.parse(json['endDate'])
-          : null,
-      status: json['status'] != null
-          ? EventState.values.firstWhere(
-            (e) => e.toString().split('.').last.toLowerCase() ==
-            json['status'].toString().toLowerCase(),
-        orElse: () => EventState.Upcoming,
-      )
-          : null,
-      isPaid: json['isPaid'],
-      price: json['price'] != null ? (json['price'] as num).toDouble() : null,
-      isRecurring: json['isRecurring'],
-      maxAttendees: json['maxAttendees'],
-    );
-  }
+  factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
+  Map<String, dynamic> toJson() => _$EventToJson(this);
 }
