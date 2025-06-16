@@ -88,7 +88,7 @@ class EventDetailsSection extends StatelessWidget {
                   child: EventInfoCard(
                     icon: Icons.location_on,
                     title: 'Location',
-                    subtitle: event.location?.toString() ?? 'TBA',
+                    subtitle: event.location?['name'] ?? 'TBA',
                   ),
                 ),
                 const SizedBox(width: 16),
