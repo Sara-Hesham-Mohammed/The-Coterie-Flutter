@@ -18,16 +18,23 @@ class EventPage extends StatefulWidget {
 }
 
 class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
-  bool _showWidget = false;
+  bool _hasRSVPed = false;
   bool _showTimer = false;
   bool _showGroup = false;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
 
+  // Timer target date - set this to your desired countdown end time
+  late DateTime _timerTargetDate;
+
   @override
   void initState() {
     super.initState();
+
+    //1 minute from now for testing
+    _timerTargetDate = DateTime.now().add(Duration(minutes: 1));
+
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 800),
       vsync: this,
@@ -56,6 +63,13 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
   void dispose() {
     _animationController.dispose();
     super.dispose();
+  }
+
+  void _onTimerEnd() {
+    setState(() {
+      _showTimer = false;
+      _showGroup = true;
+    });
   }
 
   @override
@@ -87,9 +101,105 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
                   child: Column(
                     children: [
                       EventDetailsSection(event: widget.event),
-                      if (_showWidget) Pending(),
-                      GroupMembersSection(),
-                      Text("SHOWING WIDGET"),
+
+                      // Conditional rendering based on RSVP status
+                      if (_hasRSVPed && _showTimer) ...[
+                        Container(
+                          margin: EdgeInsets.all(16),
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surfaceVariant,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Theme.of(context).colorScheme.outline.withOpacity(0.3),
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                'Group matching in progress...',
+                                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                ),
+                              ),
+                              SizedBox(height: 12),
+                              CountdownWidget(
+                                targetDate: _timerTargetDate,
+                                onTimerEnd: _onTimerEnd,
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Please wait while we find your perfect group!',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.7),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+
+                      if (_hasRSVPed && _showGroup) ...[
+                        Container(
+                          margin: EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Your Group',
+                                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 12),
+                              GroupMembersSection(),
+                            ],
+                          ),
+                        ),
+                      ],
+
+                      if (!_hasRSVPed) ...[
+                        Container(
+                          margin: EdgeInsets.all(16),
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.group_add,
+                                size: 48,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              SizedBox(height: 12),
+                              Text(
+                                'Ready to join?',
+                                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  color: Theme.of(context).colorScheme.onSurface,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'RSVP now and get matched with an amazing group!',
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+
+
+                      SizedBox(height: 50),
                     ],
                   ),
                 ),
@@ -101,13 +211,18 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
           bottom: 16.0,
           left: screenSize.width * 0.20,
           child: FloatingActionButton.extended(
-            onPressed: () {
+            onPressed: _hasRSVPed ? null : () {
               _showRSVPDialog(context);
             },
-            label: const Text('RSVP'),
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            label: Text(_hasRSVPed ? 'RSVP\'d' : 'RSVP'),
+            backgroundColor: _hasRSVPed
+                ? Theme.of(context).colorScheme.surfaceVariant
+                : Theme.of(context).colorScheme.primary,
+            foregroundColor: _hasRSVPed
+                ? Theme.of(context).colorScheme.onSurfaceVariant
+                : Theme.of(context).colorScheme.onPrimary,
             extendedPadding:
-                const EdgeInsets.symmetric(horizontal: 100, vertical: 12),
+            const EdgeInsets.symmetric(horizontal: 100, vertical: 12),
           ),
         ),
       ],
@@ -124,13 +239,14 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
-              SnackBarUtils.showSnackBar(context, 'RSVP confirmed!');
+              SnackBarUtils.showSnackBar(context, 'RSVP confirmed! Finding your group...');
 
-              // TODO: HANDLE CLUSTERING AND CHANGE THE SCREEN
-             // if(_showWidget){
-             //   if(CountdownWidget.hasEnded)
-             // }
-
+              // Handle RSVP confirmation
+              setState(() {
+                _hasRSVPed = true;
+                _showTimer = true;
+                _showGroup = false;
+              });
             },
             child: const Text('Yes'),
           ),
@@ -141,17 +257,5 @@ class _EventPageState extends State<EventPage> with TickerProviderStateMixin {
         ],
       ),
     );
-  }
-
-  void _showGroupWidget() {
-    setState(() {
-      _showGroup = !_showGroup;
-    });
-  }
-
-  void _showTimerWidget() {
-    setState(() {
-      _showTimer = !_showTimer;
-    });
   }
 }

@@ -3,5 +3,5 @@ const String TEST_ENDPOINT="/TEST";
 const String EMBEDDINGS_ENDPOINT="/embed";
 const String CLUSTERING_ENDPOINT="/cluster";
 const String RECOMMENDATIONS_ENDPOINT="/recommendations";
-const String DB_ENDPOINT="/database";
+const DB_ENDPOINT = 'http://10.0.2.2:3001';
 const String EVENTS_ENDPOINT="/events";

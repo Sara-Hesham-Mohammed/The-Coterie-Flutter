@@ -48,11 +48,10 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void signOut() async {
+  Future<void> signOut() async {
     try {
       emit(AuthLoading());
       await _authService.signOut();
-      // The auth state listener will automatically emit Unauthenticated
     } catch (e) {
       emit(AuthError('Sign out failed: ${e.toString()}'));
     }

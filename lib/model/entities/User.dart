@@ -46,6 +46,9 @@ class User extends Person {
         );
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  //TODO: ADD USER BIO TO ATTRIBUTES
+  get bio => "Placeholder bio";
   @override
   Map<String, dynamic> toJson() => _$UserToJson(this);
   @override
